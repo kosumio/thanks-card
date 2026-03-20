@@ -1,0 +1,237 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import { Heart, Inbox, Send, Trophy, User } from "lucide-react";
+import AuthGuard from "@/components/auth-guard";
+import { useAuth } from "@/lib/auth-context";
+import { thanksCards, employees, CATEGORIES } from "@/lib/mock-data";
+import type { Category } from "@/lib/types";
+
+type RankingType = "received" | "sent" | "hearts";
+
+interface PersonRank {
+  id: string;
+  name: string;
+  location: string;
+  count: number;
+}
+
+function buildFullRanking(
+  type: RankingType,
+  categoryFilter?: Category
+): PersonRank[] {
+  const counts: Record<string, number> = {};
+  const filtered = categoryFilter
+    ? thanksCards.filter((c) => c.categories.includes(categoryFilter))
+    : thanksCards;
+
+  filtered.forEach((c) => {
+    if (type === "received") {
+      counts[c.toId] = (counts[c.toId] || 0) + 1;
+    } else if (type === "sent") {
+      counts[c.fromId] = (counts[c.fromId] || 0) + 1;
+    } else {
+      counts[c.toId] = (counts[c.toId] || 0) + c.reactions;
+    }
+  });
+
+  return employees
+    .map((e) => ({
+      id: e.id,
+      name: e.name,
+      location: e.location,
+      count: counts[e.id] || 0,
+    }))
+    .filter((e) => e.count > 0)
+    .sort((a, b) => b.count - a.count);
+}
+
+export default function RankingPage() {
+  const { currentUser } = useAuth();
+  const [tab, setTab] = useState<RankingType>("received");
+  const [categoryFilter, setCategoryFilter] = useState<Category | null>(null);
+
+  const fullRanking = useMemo(
+    () => buildFullRanking(tab, categoryFilter ?? undefined),
+    [tab, categoryFilter]
+  );
+  const currentRanking = fullRanking.slice(0, 10);
+
+  // ログインユーザーの順位
+  const myRank = useMemo(() => {
+    if (!currentUser) return null;
+    const idx = fullRanking.findIndex((r) => r.id === currentUser.id);
+    if (idx < 0) return null;
+    return { rank: idx + 1, count: fullRanking[idx].count, total: fullRanking.length };
+  }, [fullRanking, currentUser]);
+
+  const getMedalColor = (index: number) => {
+    if (index === 0) return "text-yellow-500";
+    if (index === 1) return "text-gray-400";
+    if (index === 2) return "text-amber-600";
+    return "text-transparent";
+  };
+
+  const tabs = [
+    { key: "received" as const, label: "もらった", icon: Inbox, unit: "枚" },
+    { key: "sent" as const, label: "贈った", icon: Send, unit: "枚" },
+    { key: "hearts" as const, label: "グッドサンクス", icon: Heart, unit: "" },
+  ];
+
+  const currentTab = tabs.find((t) => t.key === tab)!;
+  const activeCat = CATEGORIES.find((c) => c.value === categoryFilter);
+  const rankingLabel = activeCat
+    ? `${activeCat.icon} ${categoryFilter}`
+    : "総合";
+
+  return (
+    <AuthGuard>
+      <h2 className="text-lg font-bold text-[var(--color-warm-800)] mb-4">
+        ランキング
+      </h2>
+
+      {/* Tab: もらった / 贈った / グッドサンクス */}
+      <div className="flex bg-[var(--color-warm-100)] rounded-xl p-1 mb-4">
+        {tabs.map((t) => (
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key)}
+            className={`flex-1 flex items-center justify-center gap-1 py-2 rounded-lg text-xs font-medium transition-all ${
+              tab === t.key
+                ? "bg-white text-[var(--color-primary)] shadow-sm"
+                : "text-[var(--color-warm-500)]"
+            }`}
+          >
+            <t.icon className="w-3.5 h-3.5" />
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* カテゴリフィルター */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        <button
+          onClick={() => setCategoryFilter(null)}
+          className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
+            categoryFilter === null
+              ? "bg-[var(--color-primary)] text-white shadow-sm"
+              : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
+          }`}
+        >
+          総合
+        </button>
+        {CATEGORIES.map((cat) => {
+          const isActive = categoryFilter === cat.value;
+          return (
+            <button
+              key={cat.value}
+              onClick={() => setCategoryFilter(isActive ? null : cat.value)}
+              className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
+                isActive
+                  ? `${cat.bg} ${cat.color} ring-2 ring-current shadow-sm`
+                  : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
+              }`}
+            >
+              {cat.icon} {cat.value}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* あなたの現在の順位 */}
+      {myRank && (
+        <div className="mb-4 bg-gradient-to-r from-[var(--color-warm-50)] to-white rounded-2xl p-4 border border-[var(--color-primary)]/20">
+          <p className="text-[10px] text-[var(--color-warm-500)] mb-1">あなたは現在</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl font-bold text-[var(--color-primary)]">
+                {myRank.rank}
+              </span>
+              <span className="text-sm text-[var(--color-warm-600)]">
+                位
+              </span>
+              <span className="text-xs text-[var(--color-warm-400)] ml-1">
+                / {myRank.total}人中
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              {tab === "hearts" && (
+                <Heart className="w-4 h-4 text-pink-500" fill="currentColor" />
+              )}
+              <span className={`text-lg font-bold ${tab === "hearts" ? "text-pink-500" : "text-[var(--color-primary)]"}`}>
+                {myRank.count}
+              </span>
+              {currentTab.unit && (
+                <span className="text-[10px] text-[var(--color-warm-400)]">
+                  {currentTab.unit}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ランキングリスト */}
+      <h3 className="text-sm font-semibold text-[var(--color-warm-800)] mb-3 flex items-center gap-1.5">
+        <Trophy className="w-4 h-4 text-amber-500" />
+        {rankingLabel} TOP10
+      </h3>
+      <div className="space-y-2">
+        {currentRanking.length === 0 && (
+          <p className="text-center py-8 text-sm text-[var(--color-warm-400)]">
+            該当するカードがありません
+          </p>
+        )}
+        {currentRanking.map((r, i) => (
+          <div
+            key={r.id}
+            className="animate-card-in flex items-center bg-white rounded-xl px-4 py-3 border border-[var(--color-warm-100)]"
+            style={{ animationDelay: `${i * 50}ms` }}
+          >
+            <div className="w-8 text-center">
+              {i < 3 ? (
+                <Trophy
+                  className={`w-5 h-5 mx-auto ${getMedalColor(i)}`}
+                />
+              ) : (
+                <span className="text-sm text-[var(--color-warm-400)]">
+                  {i + 1}
+                </span>
+              )}
+            </div>
+            <div className="flex-1 ml-3">
+              <p className="text-sm font-semibold text-[var(--color-warm-800)]">
+                {r.name}
+              </p>
+              <p className="text-[10px] text-[var(--color-warm-400)]">
+                {r.location}
+              </p>
+            </div>
+            <div className="flex items-center gap-1">
+              {tab === "hearts" && (
+                <Heart
+                  className="w-4 h-4 text-pink-500"
+                  fill="currentColor"
+                />
+              )}
+              <span
+                className={`text-lg font-bold ${
+                  tab === "hearts"
+                    ? "text-pink-500"
+                    : "text-[var(--color-primary)]"
+                }`}
+              >
+                {r.count}
+              </span>
+              {currentTab.unit && (
+                <span className="text-[10px] text-[var(--color-warm-400)]">
+                  {currentTab.unit}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </AuthGuard>
+  );
+}
