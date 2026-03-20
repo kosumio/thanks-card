@@ -6,6 +6,13 @@ import { ReadStatusProvider } from "@/lib/read-status";
 export const metadata: Metadata = {
   title: "Thanks Card - サンクスカード",
   description: "感謝を届けよう。鮑屋グループ サンクスカード",
+  robots: { index: false, follow: false },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "サンクスカード",
+  },
 };
 
 export const viewport: Viewport = {
