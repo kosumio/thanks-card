@@ -20,7 +20,7 @@ function timeAgo(dateStr: string): string {
 
 interface CardItemProps {
   card: ThanksCard;
-  onToggleReact?: (cardId: string, currentlyReacted: boolean) => void;
+  onToggleReact?: (cardId: string) => void;
   showFrom?: boolean;
   showTo?: boolean;
   index?: number;
@@ -100,7 +100,7 @@ export default function CardItem({
           )}
         </div>
         <button
-          onClick={() => onToggleReact?.(card.id, hasReacted)}
+          onClick={() => onToggleReact?.(card.id)}
           className={`flex items-center gap-1 text-sm transition-all active:scale-110 ${
             hasReacted
               ? "text-pink-500"

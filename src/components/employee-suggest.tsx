@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Employee } from "@/lib/types";
-import { searchEmployees } from "@/lib/mock-data";
 
 interface EmployeeSuggestProps {
+  employees: Employee[];
   excludeId?: string;
   value: Employee | null;
   onChange: (employee: Employee | null) => void;
@@ -12,13 +12,13 @@ interface EmployeeSuggestProps {
 }
 
 export default function EmployeeSuggest({
+  employees,
   excludeId,
   value,
   onChange,
   placeholder = "名前を入力してください",
 }: EmployeeSuggestProps) {
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<Employee[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -35,14 +35,25 @@ export default function EmployeeSuggest({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return employees.filter((e) => {
+      if (excludeId && e.id === excludeId) return false;
+      return (
+        e.name.toLowerCase().includes(q) ||
+        e.nameKana.toLowerCase().includes(q) ||
+        e.employeeNumber.includes(q)
+      );
+    });
+  }, [query, employees, excludeId]);
+
   const handleInputChange = (text: string) => {
     setQuery(text);
     if (value) {
       onChange(null);
     }
-    const results = searchEmployees(text, excludeId);
-    setSuggestions(results);
-    setIsOpen(results.length > 0);
+    setIsOpen(text.trim().length > 0 && !value);
   };
 
   const handleSelect = (employee: Employee) => {
@@ -54,7 +65,6 @@ export default function EmployeeSuggest({
   const handleClear = () => {
     setQuery("");
     onChange(null);
-    setSuggestions([]);
     setIsOpen(false);
   };
 
@@ -89,13 +99,13 @@ export default function EmployeeSuggest({
       {value && (
         <div className="mt-1.5 flex items-center gap-1.5">
           <span className="text-xs text-green-600 font-medium">
-            {value.name}（{value.location}）
+            {value.name}({value.location})
           </span>
         </div>
       )}
 
       {/* Suggestions dropdown */}
-      {isOpen && !value && (
+      {isOpen && !value && suggestions.length > 0 && (
         <div className="absolute z-40 w-full mt-1 bg-white rounded-xl border border-[var(--color-warm-200)] shadow-lg overflow-hidden">
           {suggestions.map((emp) => (
             <button

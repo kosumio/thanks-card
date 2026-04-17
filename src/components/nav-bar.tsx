@@ -11,19 +11,17 @@ import {
   LogOut,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
-import { useReadStatus } from "@/lib/read-status";
 
 const navItems = [
   { href: "/", icon: PenSquare, label: "書く" },
   { href: "/archive", icon: CalendarDays, label: "全部見る" },
-  { href: "/my", icon: User, label: "マイページ", showBadge: true },
+  { href: "/my", icon: User, label: "マイページ" },
   { href: "/ranking", icon: Trophy, label: "ランキング" },
 ];
 
 export default function NavBar() {
   const pathname = usePathname();
   const { currentUser, logout } = useAuth();
-  const { unreadCount } = useReadStatus();
 
   return (
     <>
@@ -47,7 +45,7 @@ export default function NavBar() {
               {currentUser?.name}
             </span>
             <button
-              onClick={logout}
+              onClick={() => logout()}
               className="text-[var(--color-warm-400)] hover:text-[var(--color-warm-600)] transition-colors"
               title="ログアウト"
             >
@@ -72,14 +70,7 @@ export default function NavBar() {
                     : "text-[var(--color-warm-400)] hover:text-[var(--color-warm-600)]"
                 }`}
               >
-                <span className="relative">
-                  <item.icon className="w-5 h-5" />
-                  {"showBadge" in item && item.showBadge && unreadCount > 0 && (
-                    <span className="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 flex items-center justify-center px-1 rounded-full bg-[var(--color-primary)] text-white text-[9px] font-bold">
-                      {unreadCount > 99 ? "99+" : unreadCount}
-                    </span>
-                  )}
-                </span>
+                <item.icon className="w-5 h-5" />
                 <span className="text-[10px] mt-0.5 font-medium">
                   {item.label}
                 </span>
