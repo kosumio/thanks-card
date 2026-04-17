@@ -2,7 +2,6 @@
 
 import { Heart, Award } from "lucide-react";
 import { ThanksCard } from "@/lib/types";
-import { getEmployee, getCategoryInfo } from "@/lib/mock-data";
 import { useAuth } from "@/lib/auth-context";
 
 function timeAgo(dateStr: string): string {
@@ -35,11 +34,7 @@ export default function CardItem({
   index = 0,
 }: CardItemProps) {
   const { currentUser } = useAuth();
-  const from = getEmployee(card.fromId);
-  const to = getEmployee(card.toId);
-  const hasReacted = currentUser
-    ? card.reactedBy.includes(currentUser.id)
-    : false;
+  const hasReacted = card.reactedByMe;
 
   return (
     <div
@@ -51,7 +46,7 @@ export default function CardItem({
         <div className="flex items-center gap-2 text-sm">
           {showFrom && (
             <span className="font-semibold text-[var(--color-warm-800)]">
-              {from?.name}
+              {card.from.name}
             </span>
           )}
           {showFrom && showTo && (
@@ -59,7 +54,7 @@ export default function CardItem({
           )}
           {showTo && (
             <span className="font-semibold text-[var(--color-primary)]">
-              {to?.name}
+              {card.to.name}
             </span>
           )}
         </div>
@@ -77,17 +72,14 @@ export default function CardItem({
 
       {/* Category badges (multiple) */}
       <div className="flex flex-wrap gap-1 mb-2.5">
-        {card.categories.map((cat) => {
-          const info = getCategoryInfo(cat);
-          return (
-            <span
-              key={cat}
-              className={`inline-block text-xs px-2.5 py-0.5 rounded-full font-medium ${info.bg} ${info.color}`}
-            >
-              {cat}
-            </span>
-          );
-        })}
+        {card.categories.map((cat) => (
+          <span
+            key={cat.id}
+            className={`inline-block text-xs px-2.5 py-0.5 rounded-full font-medium ${cat.bgClass} ${cat.colorClass}`}
+          >
+            {cat.value}
+          </span>
+        ))}
       </div>
 
       {/* Message */}
@@ -98,14 +90,12 @@ export default function CardItem({
       {/* Location tags + reaction */}
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5 text-[10px]">
-          {from && (
+          <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
+            {card.from.location}
+          </span>
+          {card.to.location !== card.from.location && (
             <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
-              {from.location}
-            </span>
-          )}
-          {to && from?.location !== to.location && (
-            <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
-              {to.location}
+              {card.to.location}
             </span>
           )}
         </div>
@@ -121,8 +111,8 @@ export default function CardItem({
             className={`w-4 h-4 transition-transform ${hasReacted ? "scale-110" : ""}`}
             fill={hasReacted ? "currentColor" : "none"}
           />
-          {card.reactions > 0 && (
-            <span className="text-xs">{card.reactions}</span>
+          {card.reactionCount > 0 && (
+            <span className="text-xs">{card.reactionCount}</span>
           )}
         </button>
       </div>

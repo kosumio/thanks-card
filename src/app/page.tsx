@@ -6,13 +6,13 @@ import AuthGuard from "@/components/auth-guard";
 import EmployeeSuggest from "@/components/employee-suggest";
 import { useAuth } from "@/lib/auth-context";
 import { CATEGORIES, employees, thanksCards } from "@/lib/mock-data";
-import type { Category, Employee } from "@/lib/types";
+import type { Employee, CategoryInfo } from "@/lib/types";
 import { MAX_MESSAGE_LENGTH } from "@/lib/types";
 
 export default function HomePage() {
   const { currentUser } = useAuth();
   const [toEmployee, setToEmployee] = useState<Employee | null>(null);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryInfo[]>([]);
 
   // サジェスト: よく送る相手（頻出送り先）+ まだ届いていない人
   const { frequents, discovers } = useMemo(() => {
@@ -21,8 +21,8 @@ export default function HomePage() {
     // 自分がよく送る相手（頻度順）
     const sentCounts: Record<string, number> = {};
     thanksCards.forEach((c) => {
-      if (c.fromId === currentUser.id) {
-        sentCounts[c.toId] = (sentCounts[c.toId] || 0) + 1;
+      if (c.from.id === currentUser.id) {
+        sentCounts[c.to.id] = (sentCounts[c.to.id] || 0) + 1;
       }
     });
     const freqs = Object.entries(sentCounts)
@@ -34,7 +34,7 @@ export default function HomePage() {
     // 同じ拠点でカードをあまりもらっていない人
     const receivedCounts: Record<string, number> = {};
     thanksCards.forEach((c) => {
-      receivedCounts[c.toId] = (receivedCounts[c.toId] || 0) + 1;
+      receivedCounts[c.to.id] = (receivedCounts[c.to.id] || 0) + 1;
     });
     const freqIds = new Set(freqs.map((e) => e.id));
     const discs = employees
@@ -56,9 +56,9 @@ export default function HomePage() {
   const canSubmit =
     toEmployee && selectedCategories.length > 0 && message.trim().length > 0;
 
-  const toggleCategory = (cat: Category) => {
+  const toggleCategory = (cat: CategoryInfo) => {
     setSelectedCategories((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+      prev.some((c) => c.id === cat.id) ? prev.filter((c) => c.id !== cat.id) : [...prev, cat]
     );
   };
 
@@ -178,14 +178,14 @@ export default function HomePage() {
           </label>
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => {
-              const isSelected = selectedCategories.includes(cat.value);
+              const isSelected = selectedCategories.some((c) => c.id === cat.id);
               return (
                 <button
                   key={cat.value}
-                  onClick={() => toggleCategory(cat.value)}
+                  onClick={() => toggleCategory(cat)}
                   className={`text-xs px-3.5 py-2 rounded-xl font-medium transition-all ${
                     isSelected
-                      ? `${cat.bg} ${cat.color} ring-2 ring-current shadow-sm`
+                      ? `${cat.bgClass} ${cat.colorClass} ring-2 ring-current shadow-sm`
                       : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
                   }`}
                 >
@@ -250,17 +250,14 @@ export default function HomePage() {
                 {toEmployee.location}
               </p>
               <div className="flex flex-wrap gap-1 mt-2">
-                {selectedCategories.map((cat) => {
-                  const info = CATEGORIES.find((c) => c.value === cat);
-                  return (
-                    <span
-                      key={cat}
-                      className={`text-[10px] px-2 py-0.5 rounded-full ${info?.bg} ${info?.color}`}
-                    >
-                      {cat}
-                    </span>
-                  );
-                })}
+                {selectedCategories.map((cat) => (
+                  <span
+                    key={cat.id}
+                    className={`text-[10px] px-2 py-0.5 rounded-full ${cat.bgClass} ${cat.colorClass}`}
+                  >
+                    {cat.value}
+                  </span>
+                ))}
               </div>
               <p className="text-sm text-[var(--color-warm-700)] mt-3 leading-relaxed">
                 {message}

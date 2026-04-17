@@ -9,7 +9,6 @@ import {
   employees,
   LOCATIONS,
   CATEGORIES,
-  getEmployee,
 } from "@/lib/mock-data";
 
 export default function AdminPage() {
@@ -21,24 +20,18 @@ export default function AdminPage() {
   const stats = useMemo(() => {
     const totalCards = cards.length;
     const totalEmployees = employees.length;
-    const activeWriters = new Set(cards.map((c) => c.fromId)).size;
-    const totalHearts = cards.reduce((sum, c) => sum + c.reactions, 0);
+    const activeWriters = new Set(cards.map((c) => c.from.id)).size;
+    const totalHearts = cards.reduce((sum, c) => sum + c.reactionCount, 0);
 
     const categoryBreakdown = CATEGORIES.map((cat) => ({
       ...cat,
-      count: cards.filter((c) => c.categories.includes(cat.value)).length,
+      count: cards.filter((c) => c.categories.some((cc) => cc.value === cat.value)).length,
     }));
 
     const locationBreakdown = LOCATIONS.map((loc) => {
       const locEmployees = employees.filter((e) => e.location === loc);
-      const locSent = cards.filter((c) => {
-        const from = getEmployee(c.fromId);
-        return from?.location === loc;
-      }).length;
-      const locReceived = cards.filter((c) => {
-        const to = getEmployee(c.toId);
-        return to?.location === loc;
-      }).length;
+      const locSent = cards.filter((c) => c.from.location === loc).length;
+      const locReceived = cards.filter((c) => c.to.location === loc).length;
       return {
         location: loc,
         employees: locEmployees.length,
@@ -51,17 +44,15 @@ export default function AdminPage() {
       };
     });
 
-    const crossLocationCards = cards.filter((c) => {
-      const from = getEmployee(c.fromId);
-      const to = getEmployee(c.toId);
-      return from && to && from.location !== to.location;
-    }).length;
+    const crossLocationCards = cards.filter(
+      (c) => c.from.location !== c.to.location
+    ).length;
 
     const pickedCards = cards.filter((c) => c.isPicked);
 
     const involvedIds = new Set([
-      ...cards.map((c) => c.fromId),
-      ...cards.map((c) => c.toId),
+      ...cards.map((c) => c.from.id),
+      ...cards.map((c) => c.to.id),
     ]);
     const isolatedEmployees = employees.filter((e) => !involvedIds.has(e.id));
 
@@ -175,13 +166,13 @@ export default function AdminPage() {
           {stats.categoryBreakdown.map((cat) => (
             <div key={cat.value} className="flex items-center gap-3">
               <span
-                className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full ${cat.bg} ${cat.color}`}
+                className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full ${cat.bgClass} ${cat.colorClass}`}
               >
                 {cat.icon} {cat.value}
               </span>
               <div className="flex-1 h-2 bg-[var(--color-warm-100)] rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full ${cat.bg}`}
+                  className={`h-full rounded-full ${cat.bgClass}`}
                   style={{
                     width: `${
                       stats.totalCards > 0
@@ -290,7 +281,7 @@ export default function AdminPage() {
                     onClick={() => setSearchCategory(searchCategory === cat.value ? null : cat.value)}
                     className={`text-[10px] px-2.5 py-1 rounded-lg font-medium transition-all ${
                       searchCategory === cat.value
-                        ? `${cat.bg} ${cat.color} ring-1 ring-current`
+                        ? `${cat.bgClass} ${cat.colorClass} ring-1 ring-current`
                         : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]"
                     }`}
                   >
@@ -306,15 +297,13 @@ export default function AdminPage() {
                 const q = searchQuery.trim().toLowerCase();
                 const filtered = cards
                   .filter((card) => {
-                    if (searchCategory && !card.categories.includes(searchCategory as any)) return false;
+                    if (searchCategory && !card.categories.some((cc) => cc.value === searchCategory)) return false;
                     if (!q) return true;
-                    const from = getEmployee(card.fromId);
-                    const to = getEmployee(card.toId);
                     return (
-                      from?.name.includes(q) ||
-                      from?.nameKana.includes(q) ||
-                      to?.name.includes(q) ||
-                      to?.nameKana.includes(q) ||
+                      card.from.name.includes(q) ||
+                      card.from.nameKana.includes(q) ||
+                      card.to.name.includes(q) ||
+                      card.to.nameKana.includes(q) ||
                       card.message.includes(q)
                     );
                   })

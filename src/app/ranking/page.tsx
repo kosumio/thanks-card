@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Heart, Inbox, Send, Trophy, User } from "lucide-react";
+import { Heart, Inbox, Send, Trophy } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
 import { useAuth } from "@/lib/auth-context";
 import { thanksCards, employees, CATEGORIES } from "@/lib/mock-data";
-import type { Category } from "@/lib/types";
+import type { ThanksCard } from "@/lib/types";
 
 type RankingType = "received" | "sent" | "hearts";
 
@@ -18,20 +18,20 @@ interface PersonRank {
 
 function buildFullRanking(
   type: RankingType,
-  categoryFilter?: Category
+  categoryFilter?: string
 ): PersonRank[] {
   const counts: Record<string, number> = {};
   const filtered = categoryFilter
-    ? thanksCards.filter((c) => c.categories.includes(categoryFilter))
+    ? thanksCards.filter((c) => c.categories.some((cc) => cc.value === categoryFilter))
     : thanksCards;
 
   filtered.forEach((c) => {
     if (type === "received") {
-      counts[c.toId] = (counts[c.toId] || 0) + 1;
+      counts[c.to.id] = (counts[c.to.id] || 0) + 1;
     } else if (type === "sent") {
-      counts[c.fromId] = (counts[c.fromId] || 0) + 1;
+      counts[c.from.id] = (counts[c.from.id] || 0) + 1;
     } else {
-      counts[c.toId] = (counts[c.toId] || 0) + c.reactions;
+      counts[c.to.id] = (counts[c.to.id] || 0) + c.reactionCount;
     }
   });
 
@@ -49,7 +49,7 @@ function buildFullRanking(
 export default function RankingPage() {
   const { currentUser } = useAuth();
   const [tab, setTab] = useState<RankingType>("received");
-  const [categoryFilter, setCategoryFilter] = useState<Category | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
 
   const fullRanking = useMemo(
     () => buildFullRanking(tab, categoryFilter ?? undefined),
@@ -128,7 +128,7 @@ export default function RankingPage() {
               onClick={() => setCategoryFilter(isActive ? null : cat.value)}
               className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
                 isActive
-                  ? `${cat.bg} ${cat.color} ring-2 ring-current shadow-sm`
+                  ? `${cat.bgClass} ${cat.colorClass} ring-2 ring-current shadow-sm`
                   : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
               }`}
             >

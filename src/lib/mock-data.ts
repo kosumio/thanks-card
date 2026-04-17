@@ -1,14 +1,14 @@
-import { Employee, ThanksCard, Category, Location } from "./types";
+import { Employee, ThanksCard, CategoryInfo } from "./types";
 
-export const CATEGORIES: { value: Category; color: string; bg: string; icon: string }[] = [
-  { value: "志高く、挑戦・進化", color: "text-red-700", bg: "bg-red-100", icon: "🔥" },
-  { value: "5S", color: "text-blue-700", bg: "bg-blue-100", icon: "✨" },
-  { value: "報連相", color: "text-green-700", bg: "bg-green-100", icon: "💬" },
-  { value: "思いやり", color: "text-pink-700", bg: "bg-pink-100", icon: "🤝" },
-  { value: "約束・ルールを守る", color: "text-purple-700", bg: "bg-purple-100", icon: "📌" },
+export const CATEGORIES: CategoryInfo[] = [
+  { id: "cat1", value: "志高く、挑戦・進化", displayOrder: 1, colorClass: "text-red-700", bgClass: "bg-red-100", icon: "🔥" },
+  { id: "cat2", value: "5S", displayOrder: 2, colorClass: "text-blue-700", bgClass: "bg-blue-100", icon: "✨" },
+  { id: "cat3", value: "報連相", displayOrder: 3, colorClass: "text-green-700", bgClass: "bg-green-100", icon: "💬" },
+  { id: "cat4", value: "思いやり", displayOrder: 4, colorClass: "text-pink-700", bgClass: "bg-pink-100", icon: "🤝" },
+  { id: "cat5", value: "約束・ルールを守る", displayOrder: 5, colorClass: "text-purple-700", bgClass: "bg-purple-100", icon: "📌" },
 ];
 
-export const LOCATIONS: Location[] = [
+export const LOCATIONS: string[] = [
   "本社",
   "HD",
   "アバロン工場",
@@ -45,7 +45,7 @@ function randomDate(daysBack: number): string {
   return d.toISOString();
 }
 
-const sampleMessages: Record<Category, string[]> = {
+const sampleMessages: Record<string, string[]> = {
   "志高く、挑戦・進化": [
     "新しい加工方法を自分から提案して試してくれたおかげで、品質が上がりました。挑戦する姿勢に感謝です。",
     "「もっと良くできるはず」と改善案を出してくれて、チーム全体の意識が変わりました。ありがとう。",
@@ -82,7 +82,7 @@ function pickRandom<T>(arr: T[]): T {
 
 function generateCards(): ThanksCard[] {
   const cards: ThanksCard[] = [];
-  const categories = Object.keys(sampleMessages) as Category[];
+  const categoryValues = Object.keys(sampleMessages);
 
   for (let i = 0; i < 30; i++) {
     const fromIdx = Math.floor(Math.random() * employees.length);
@@ -90,11 +90,13 @@ function generateCards(): ThanksCard[] {
     while (toIdx === fromIdx) {
       toIdx = Math.floor(Math.random() * employees.length);
     }
-    const mainCategory = pickRandom(categories);
-    const cardCategories: Category[] = [mainCategory];
+    const mainCatValue = pickRandom(categoryValues);
+    const cardCategories: CategoryInfo[] = [
+      CATEGORIES.find((c) => c.value === mainCatValue)!,
+    ];
     if (Math.random() < 0.3) {
-      const second = pickRandom(categories.filter((c) => c !== mainCategory));
-      cardCategories.push(second);
+      const secondValue = pickRandom(categoryValues.filter((c) => c !== mainCatValue));
+      cardCategories.push(CATEGORIES.find((c) => c.value === secondValue)!);
     }
 
     const reactCount = Math.floor(Math.random() * 8);
@@ -106,15 +108,17 @@ function generateCards(): ThanksCard[] {
 
     cards.push({
       id: `tc${String(i + 1).padStart(3, "0")}`,
-      fromId: employees[fromIdx].id,
-      toId: employees[toIdx].id,
+      from: employees[fromIdx],
+      to: employees[toIdx],
       categories: cardCategories,
-      message: pickRandom(sampleMessages[mainCategory]),
+      message: pickRandom(sampleMessages[mainCatValue]),
       createdAt: randomDate(30),
-      reactions: reactCount,
-      reactedBy: reactors,
+      reactionCount: reactCount,
+      reactedByMe: false,
       isPicked: Math.random() < 0.15,
-    });
+      // Keep reactor IDs for mock toggle functionality
+      _reactorIds: reactors,
+    } as ThanksCard & { _reactorIds: string[] });
   }
 
   return cards.sort(
@@ -133,13 +137,13 @@ export function getCardsForUser(userId: string): {
   sent: ThanksCard[];
 } {
   return {
-    received: thanksCards.filter((c) => c.toId === userId),
-    sent: thanksCards.filter((c) => c.fromId === userId),
+    received: thanksCards.filter((c) => c.to.id === userId),
+    sent: thanksCards.filter((c) => c.from.id === userId),
   };
 }
 
-export function getCategoryInfo(category: Category) {
-  return CATEGORIES.find((c) => c.value === category) ?? CATEGORIES[4];
+export function getCategoryInfo(categoryValue: string): CategoryInfo {
+  return CATEGORIES.find((c) => c.value === categoryValue) ?? CATEGORIES[4];
 }
 
 export function searchEmployees(query: string, excludeId?: string): Employee[] {

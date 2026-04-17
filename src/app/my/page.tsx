@@ -7,7 +7,6 @@ import CardItem from "@/components/card-item";
 import { useAuth } from "@/lib/auth-context";
 import { useReadStatus } from "@/lib/read-status";
 import { getCardsForUser, thanksCards, employees, CATEGORIES } from "@/lib/mock-data";
-import type { Category } from "@/lib/types";
 
 type Tab = "received" | "sent";
 
@@ -73,7 +72,7 @@ export default function MyPage() {
       // 注目度（ハート合計）
       const heartsByPerson: Record<string, number> = {};
       cards.forEach((c) => {
-        heartsByPerson[c.toId] = (heartsByPerson[c.toId] || 0) + c.reactions;
+        heartsByPerson[c.to.id] = (heartsByPerson[c.to.id] || 0) + c.reactionCount;
       });
       const heartRanking = Object.entries(heartsByPerson)
         .filter(([, v]) => v > 0)
@@ -86,7 +85,7 @@ export default function MyPage() {
       // もらった数
       const recvByPerson: Record<string, number> = {};
       cards.forEach((c) => {
-        recvByPerson[c.toId] = (recvByPerson[c.toId] || 0) + 1;
+        recvByPerson[c.to.id] = (recvByPerson[c.to.id] || 0) + 1;
       });
       const recvRanking = Object.entries(recvByPerson).sort((a, b) => b[1] - a[1]);
       const recvRank = recvRanking.findIndex(([id]) => id === currentUser!.id);
@@ -97,7 +96,7 @@ export default function MyPage() {
       // 贈った数
       const sentByPerson: Record<string, number> = {};
       cards.forEach((c) => {
-        sentByPerson[c.fromId] = (sentByPerson[c.fromId] || 0) + 1;
+        sentByPerson[c.from.id] = (sentByPerson[c.from.id] || 0) + 1;
       });
       const sentRanking = Object.entries(sentByPerson).sort((a, b) => b[1] - a[1]);
       const sentRank = sentRanking.findIndex(([id]) => id === currentUser!.id);
@@ -115,7 +114,7 @@ export default function MyPage() {
 
       // カテゴリ別
       CATEGORIES.forEach((cat) => {
-        const catCards = monthCards.filter((c) => c.categories.includes(cat.value));
+        const catCards = monthCards.filter((c) => c.categories.some((cc) => cc.value === cat.value));
         if (catCards.length > 0) {
           checkRanking(catCards, monthLabel, `${cat.icon}${cat.value}`);
         }

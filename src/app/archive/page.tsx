@@ -5,8 +5,8 @@ import { ChevronLeft, ChevronRight, Heart, Clock, Flame, Trophy, MapPin, Award }
 import AuthGuard from "@/components/auth-guard";
 import CardItem from "@/components/card-item";
 import { useAuth } from "@/lib/auth-context";
-import { thanksCards, getEmployee, getCategoryInfo, LOCATIONS, CATEGORIES, employees } from "@/lib/mock-data";
-import type { Category } from "@/lib/types";
+import { thanksCards, LOCATIONS, CATEGORIES, employees } from "@/lib/mock-data";
+import type { ThanksCard } from "@/lib/types";
 
 type SortMode = "new" | "hot";
 
@@ -15,7 +15,7 @@ function getMonthLabel(year: number, month: number): string {
 }
 
 function getAvailableMonths(
-  cards: typeof thanksCards
+  cards: ThanksCard[]
 ): { year: number; month: number }[] {
   const set = new Set<string>();
   cards.forEach((c) => {
@@ -55,14 +55,14 @@ export default function ArchivePage() {
     });
   }, [cards, current]);
 
-  const totalHearts = monthCards.reduce((sum, c) => sum + c.reactions, 0);
+  const totalHearts = monthCards.reduce((sum, c) => sum + c.reactionCount, 0);
 
   // 今月のトップ3（ハート数上位）
   const top3 = useMemo(() => {
     return [...monthCards]
-      .sort((a, b) => b.reactions - a.reactions)
+      .sort((a, b) => b.reactionCount - a.reactionCount)
       .slice(0, 3)
-      .filter((c) => c.reactions > 0);
+      .filter((c) => c.reactionCount > 0);
   }, [monthCards]);
 
   const top3Ids = useMemo(() => new Set(top3.map((c) => c.id)), [top3]);
@@ -70,7 +70,7 @@ export default function ArchivePage() {
   const sortedCards = useMemo(() => {
     if (sortMode === "hot") {
       return [...monthCards]
-        .sort((a, b) => b.reactions - a.reactions)
+        .sort((a, b) => b.reactionCount - a.reactionCount)
         .filter((c) => !top3Ids.has(c.id));
     }
     return monthCards;
@@ -84,9 +84,9 @@ export default function ArchivePage() {
     const empLocationMap = new Map(employees.map((e) => [e.id, e.location]));
     return LOCATIONS.map((loc) => {
       // カテゴリ別集計
-      const catReceived: Record<Category, number> = {} as Record<Category, number>;
-      const catSent: Record<Category, number> = {} as Record<Category, number>;
-      const catHearts: Record<Category, number> = {} as Record<Category, number>;
+      const catReceived: Record<string, number> = {};
+      const catSent: Record<string, number> = {};
+      const catHearts: Record<string, number> = {};
       CATEGORIES.forEach((c) => {
         catReceived[c.value] = 0;
         catSent[c.value] = 0;
@@ -95,27 +95,27 @@ export default function ArchivePage() {
 
       let totalReceived = 0;
       let totalSent = 0;
-      let totalHearts = 0;
+      let locTotalHearts = 0;
 
       monthCards.forEach((card) => {
-        const fromLoc = empLocationMap.get(card.fromId);
-        const toLoc = empLocationMap.get(card.toId);
+        const fromLoc = card.from.location;
+        const toLoc = card.to.location;
 
         if (toLoc === loc) {
           totalReceived++;
-          card.categories.forEach((cat) => { catReceived[cat]++; });
+          card.categories.forEach((cat) => { catReceived[cat.value]++; });
         }
         if (fromLoc === loc) {
           totalSent++;
-          card.categories.forEach((cat) => { catSent[cat]++; });
+          card.categories.forEach((cat) => { catSent[cat.value]++; });
         }
         if (toLoc === loc) {
-          totalHearts += card.reactions;
-          card.categories.forEach((cat) => { catHearts[cat] += card.reactions; });
+          locTotalHearts += card.reactionCount;
+          card.categories.forEach((cat) => { catHearts[cat.value] += card.reactionCount; });
         }
       });
 
-      return { location: loc, totalReceived, totalSent, totalHearts, catReceived, catSent, catHearts };
+      return { location: loc, totalReceived, totalSent, totalHearts: locTotalHearts, catReceived, catSent, catHearts };
     });
   }, [monthCards]);
 
@@ -127,14 +127,14 @@ export default function ArchivePage() {
         if (currentlyReacted) {
           return {
             ...c,
-            reactions: c.reactions - 1,
-            reactedBy: c.reactedBy.filter((id) => id !== currentUser.id),
+            reactionCount: c.reactionCount - 1,
+            reactedByMe: false,
           };
         } else {
           return {
             ...c,
-            reactions: c.reactions + 1,
-            reactedBy: [...c.reactedBy, currentUser.id],
+            reactionCount: c.reactionCount + 1,
+            reactedByMe: true,
           };
         }
       })
@@ -212,7 +212,7 @@ export default function ArchivePage() {
         </div>
         <div className="flex-1 bg-white rounded-2xl p-3 border border-[var(--color-warm-100)] text-center">
           <p className="text-xl font-bold text-green-600">
-            {new Set(monthCards.map((c) => c.fromId)).size}
+            {new Set(monthCards.map((c) => c.from.id)).size}
           </p>
           <p className="text-[10px] text-[var(--color-warm-500)]">投稿者数</p>
         </div>
@@ -227,11 +227,7 @@ export default function ArchivePage() {
           </h3>
           <div className="space-y-2">
             {top3.map((card, i) => {
-              const from = getEmployee(card.fromId);
-              const to = getEmployee(card.toId);
-              const hasReacted = currentUser
-                ? card.reactedBy.includes(currentUser.id)
-                : false;
+              const hasReacted = card.reactedByMe;
               const cardDate = new Date(card.createdAt);
               const dateLabel = cardDate.toLocaleDateString("ja-JP", { month: "short", day: "numeric" });
               return (
@@ -257,11 +253,11 @@ export default function ArchivePage() {
                         </div>
                         <div className="flex items-center gap-1.5 text-sm">
                           <span className="font-semibold text-[var(--color-warm-800)]">
-                            {from?.name}
+                            {card.from.name}
                           </span>
                           <span className="text-[var(--color-warm-300)]">→</span>
                           <span className="font-semibold text-[var(--color-primary)]">
-                            {to?.name}
+                            {card.to.name}
                           </span>
                         </div>
                       </div>
@@ -279,17 +275,14 @@ export default function ArchivePage() {
 
                     {/* Category badges */}
                     <div className="flex flex-wrap gap-1 mb-2">
-                      {card.categories.map((cat) => {
-                        const info = getCategoryInfo(cat);
-                        return (
-                          <span
-                            key={cat}
-                            className={`inline-block text-xs px-2.5 py-0.5 rounded-full font-medium ${info.bg} ${info.color}`}
-                          >
-                            {cat}
-                          </span>
-                        );
-                      })}
+                      {card.categories.map((cat) => (
+                        <span
+                          key={cat.id}
+                          className={`inline-block text-xs px-2.5 py-0.5 rounded-full font-medium ${cat.bgClass} ${cat.colorClass}`}
+                        >
+                          {cat.value}
+                        </span>
+                      ))}
                     </div>
 
                     {/* Message */}
@@ -300,14 +293,12 @@ export default function ArchivePage() {
                     {/* Location tags + heart */}
                     <div className="flex items-center justify-between">
                       <div className="flex gap-1.5 text-[10px]">
-                        {from && (
+                        <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
+                          {card.from.location}
+                        </span>
+                        {card.to.location !== card.from.location && (
                           <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
-                            {from.location}
-                          </span>
-                        )}
-                        {to && from?.location !== to.location && (
-                          <span className="px-2 py-0.5 rounded-full bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]">
-                            {to.location}
+                            {card.to.location}
                           </span>
                         )}
                       </div>
@@ -324,7 +315,7 @@ export default function ArchivePage() {
                           fill={hasReacted ? "currentColor" : "none"}
                         />
                         <span className="text-xs font-medium">
-                          {card.reactions}
+                          {card.reactionCount}
                         </span>
                       </button>
                     </div>
@@ -370,7 +361,7 @@ export default function ArchivePage() {
                 <tr className="border-b border-[var(--color-warm-100)]">
                   <th className="text-left py-2 px-3 font-medium text-[var(--color-warm-500)]">拠点</th>
                   {CATEGORIES.map((cat) => (
-                    <th key={cat.value} className={`py-2 px-1.5 font-medium text-center ${cat.color}`} title={cat.value}>
+                    <th key={cat.value} className={`py-2 px-1.5 font-medium text-center ${cat.colorClass}`} title={cat.value}>
                       {cat.icon}
                     </th>
                   ))}
@@ -428,7 +419,7 @@ export default function ArchivePage() {
         {/* カテゴリ凡例 */}
         <div className="flex flex-wrap gap-2 mt-2">
           {CATEGORIES.map((cat) => (
-            <span key={cat.value} className={`text-[10px] ${cat.color}`}>
+            <span key={cat.value} className={`text-[10px] ${cat.colorClass}`}>
               {cat.icon} {cat.value}
             </span>
           ))}
