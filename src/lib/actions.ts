@@ -77,19 +77,14 @@ export async function sendCardAction(
   } = await supabase.auth.getUser();
   if (!user) return { error: "ログインが必要です" };
 
-  // Look up the employee record linked to this auth user
-  const { data: fromEmp } = await supabase
-    .from("employees")
-    .select("id")
-    .eq("id", user.id)
-    .single();
-
-  if (!fromEmp) return { error: "社員情報が見つかりません" };
+  // Get employee_id from auth user's app_metadata
+  const employeeId = user.app_metadata?.employee_id;
+  if (!employeeId) return { error: "社員情報が見つかりません" };
 
   // Insert thanks card
   const { data: card, error: cardError } = await supabase
     .from("thanks_cards")
-    .insert({ from_id: fromEmp.id, to_id: toId, message })
+    .insert({ from_id: employeeId, to_id: toId, message })
     .select("id")
     .single();
 
@@ -135,7 +130,7 @@ export async function toggleReactionAction(
     .from("card_reactions")
     .select("card_id")
     .eq("card_id", cardId)
-    .eq("user_id", user.id)
+    .eq("user_id", user.app_metadata?.employee_id)
     .maybeSingle();
 
   if (existing) {
@@ -144,14 +139,14 @@ export async function toggleReactionAction(
       .from("card_reactions")
       .delete()
       .eq("card_id", cardId)
-      .eq("user_id", user.id);
+      .eq("user_id", user.app_metadata?.employee_id);
 
     if (error) return { error: "リアクションの削除に失敗しました" };
   } else {
     // Add reaction
     const { error } = await supabase
       .from("card_reactions")
-      .insert({ card_id: cardId, user_id: user.id });
+      .insert({ card_id: cardId, user_id: user.app_metadata?.employee_id });
 
     if (error) return { error: "リアクションの追加に失敗しました" };
   }
@@ -198,7 +193,7 @@ export async function markAsReadAction(
 
   const rows = cardIds.map((cardId) => ({
     card_id: cardId,
-    user_id: user.id,
+    user_id: user.app_metadata?.employee_id,
   }));
 
   const { error } = await supabase

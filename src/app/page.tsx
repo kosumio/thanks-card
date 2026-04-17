@@ -12,7 +12,7 @@ export default async function HomePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const currentUserId = user?.id ?? "";
+  const currentUserId = user?.app_metadata?.employee_id ?? "";
 
   const [employees, categories, cards] = await Promise.all([
     getActiveEmployees(),

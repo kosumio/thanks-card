@@ -46,11 +46,16 @@ export function AuthProvider({
         setCurrentUser(null);
         return;
       }
-      // Query employees table for the authenticated user
+      // Query employees table using employee_id from app_metadata
+      const employeeId = user.app_metadata?.employee_id;
+      if (!employeeId) {
+        setCurrentUser(null);
+        return;
+      }
       const { data: emp } = await supabase
         .from("employees")
         .select("id, employee_number, name, name_kana, location, is_admin")
-        .eq("id", user.id)
+        .eq("id", employeeId)
         .single();
 
       if (emp) {

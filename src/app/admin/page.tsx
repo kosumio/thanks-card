@@ -12,7 +12,7 @@ export default async function AdminPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const currentUserId = user?.id ?? "";
+  const currentUserId = user?.app_metadata?.employee_id ?? "";
 
   const [cards, employees, categories] = await Promise.all([
     getAllCards(currentUserId),

@@ -36,8 +36,8 @@ export default async function RootLayout({
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (user) {
-      initialUser = await getEmployeeById(user.id);
+    if (user?.app_metadata?.employee_id) {
+      initialUser = await getEmployeeById(user.app_metadata.employee_id);
     }
   } catch {
     // Auth check failed — continue with null user
