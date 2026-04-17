@@ -4,7 +4,12 @@ import { useAuth } from "@/lib/auth-context";
 import NavBar from "./nav-bar";
 import LoginPage from "@/app/login/login-form";
 
-export default function AuthGuard({ children }: { children: React.ReactNode }) {
+interface AuthGuardProps {
+  children: React.ReactNode;
+  requireAdmin?: boolean;
+}
+
+export default function AuthGuard({ children, requireAdmin }: AuthGuardProps) {
   const { currentUser, isLoading } = useAuth();
 
   if (isLoading) {
@@ -17,6 +22,21 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (!currentUser) {
     return <LoginPage />;
+  }
+
+  if (requireAdmin && !currentUser.isAdmin) {
+    return (
+      <>
+        <NavBar />
+        <main className="pt-14 pb-20">
+          <div className="max-w-lg mx-auto px-4 py-4">
+            <div className="text-center py-20 text-[var(--color-warm-500)]">
+              <p className="text-sm">このページは管理者のみアクセスできます</p>
+            </div>
+          </div>
+        </main>
+      </>
+    );
   }
 
   return (

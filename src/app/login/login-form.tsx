@@ -1,21 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Heart } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { loginAction } from "@/lib/actions";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { refreshUser } = useAuth();
   const [employeeNumber, setEmployeeNumber] = useState("");
-  const [name, setName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-  const canSubmit = employeeNumber.trim() && name.trim();
+  const canSubmit = employeeNumber.trim() && birthdate.trim() && !isPending;
 
   const handleLogin = () => {
     if (!canSubmit) return;
-    const err = login(employeeNumber, name);
-    if (err) setError(err);
+    setError(null);
+    startTransition(async () => {
+      const formData = new FormData();
+      formData.set("employeeNumber", employeeNumber.trim());
+      formData.set("birthdate", birthdate.trim());
+      const result = await loginAction(formData);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        await refreshUser();
+      }
+    });
   };
 
   return (
@@ -55,24 +67,26 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Name */}
+            {/* Birthdate */}
             <div>
               <label className="block text-sm font-medium text-[var(--color-warm-700)] mb-1.5">
-                氏名
+                生年月日
               </label>
               <input
-                type="text"
-                value={name}
+                type="date"
+                value={birthdate}
                 onChange={(e) => {
-                  setName(e.target.value);
+                  setBirthdate(e.target.value);
                   setError(null);
                 }}
-                placeholder="例: 田中太郎"
                 className="w-full px-4 py-3 rounded-xl border border-[var(--color-warm-200)] bg-[var(--color-warm-50)] text-[var(--color-warm-800)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors placeholder:text-[var(--color-warm-300)]"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleLogin();
                 }}
               />
+              <p className="text-[10px] text-[var(--color-warm-400)] mt-1">
+                例: 1990年1月15日の場合 → 1990-01-15
+              </p>
             </div>
 
             {/* Error message */}
@@ -88,7 +102,7 @@ export default function LoginPage() {
               onClick={handleLogin}
               className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-dark)] shadow-md hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
             >
-              ログイン
+              {isPending ? "ログイン中..." : "ログイン"}
             </button>
           </div>
         </div>

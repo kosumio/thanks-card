@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
-import { ReadStatusProvider } from "@/lib/read-status";
+import { createClient } from "@/lib/supabase/server";
+import { getEmployeeById } from "@/lib/queries";
+import type { Employee } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Thanks Card - サンクスカード",
@@ -21,17 +23,30 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  let initialUser: Employee | null = null;
+
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      initialUser = await getEmployeeById(user.id);
+    }
+  } catch {
+    // Auth check failed — continue with null user
+  }
+
   return (
     <html lang="ja">
       <body className="min-h-screen bg-[var(--color-bg)]">
-        <AuthProvider>
-          <ReadStatusProvider>{children}</ReadStatusProvider>
-        </AuthProvider>
+        <AuthProvider initialUser={initialUser}>{children}</AuthProvider>
       </body>
     </html>
   );

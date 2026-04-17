@@ -1,5 +1,3 @@
-"use server";
-
 import { createClient } from "@/lib/supabase/server";
 import type { DbEmployee, DbCategory } from "@/lib/database.types";
 import type { Employee, CategoryInfo, ThanksCard } from "@/lib/types";

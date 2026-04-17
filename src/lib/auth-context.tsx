@@ -9,73 +9,99 @@ import {
   ReactNode,
 } from "react";
 import { Employee } from "./types";
-import { employees } from "./mock-data";
-
-const COOKIE_NAME = "tc_auth";
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 90; // 90日
-
-function setCookie(employeeId: string) {
-  document.cookie = `${COOKIE_NAME}=${employeeId}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
-}
-
-function getCookie(): string | null {
-  const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`));
-  return match ? match[1] : null;
-}
-
-function deleteCookie() {
-  document.cookie = `${COOKIE_NAME}=; path=/; max-age=0`;
-}
+import { createClient } from "./supabase/client";
+import { logoutAction } from "./actions";
 
 interface AuthContextType {
   currentUser: Employee | null;
   isLoading: boolean;
-  login: (employeeNumber: string, name: string) => string | null;
-  logout: () => void;
+  refreshUser: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   currentUser: null,
   isLoading: true,
-  login: () => null,
-  logout: () => {},
+  refreshUser: async () => {},
+  logout: async () => {},
 });
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<Employee | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export function AuthProvider({
+  initialUser,
+  children,
+}: {
+  initialUser: Employee | null;
+  children: ReactNode;
+}) {
+  const [currentUser, setCurrentUser] = useState<Employee | null>(initialUser);
+  const [isLoading, setIsLoading] = useState(!initialUser);
 
-  // Cookie からログイン状態を復元
-  useEffect(() => {
-    const savedId = getCookie();
-    if (savedId) {
-      const emp = employees.find((e) => e.id === savedId);
-      if (emp) setCurrentUser(emp);
+  const refreshUser = useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        setCurrentUser(null);
+        return;
+      }
+      // Query employees table for the authenticated user
+      const { data: emp } = await supabase
+        .from("employees")
+        .select("id, employee_number, name, name_kana, location, is_admin")
+        .eq("id", user.id)
+        .single();
+
+      if (emp) {
+        setCurrentUser({
+          id: emp.id,
+          employeeNumber: emp.employee_number,
+          name: emp.name,
+          nameKana: emp.name_kana,
+          location: emp.location,
+          isAdmin: emp.is_admin,
+        });
+      } else {
+        setCurrentUser(null);
+      }
+    } catch {
+      setCurrentUser(null);
     }
-    setIsLoading(false);
   }, []);
 
-  const login = useCallback((employeeNumber: string, name: string): string | null => {
-    const emp = employees.find(
-      (e) =>
-        e.employeeNumber === employeeNumber.trim() &&
-        e.name.replace(/\s/g, "") === name.replace(/\s/g, "").trim()
-    );
-    if (emp) {
-      setCurrentUser(emp);
-      setCookie(emp.id);
-      return null;
-    }
-    return "従業員番号または名前が正しくありません";
-  }, []);
-
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await logoutAction();
     setCurrentUser(null);
-    deleteCookie();
   }, []);
+
+  // Listen for auth state changes
+  useEffect(() => {
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") {
+        refreshUser();
+      } else if (event === "SIGNED_OUT") {
+        setCurrentUser(null);
+      }
+    });
+
+    // If no initial user, check auth state
+    if (!initialUser) {
+      refreshUser().then(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [initialUser, refreshUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, isLoading, refreshUser, logout }}>
       {children}
     </AuthContext.Provider>
   );
