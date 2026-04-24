@@ -1,14 +1,19 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { loginAction } from "@/lib/actions";
+import BirthdatePicker from "@/components/birthdate-picker";
+
+const DEFAULT_BIRTHDATE = "1990-01-01";
 
 export default function LoginPage() {
+  const router = useRouter();
   const { refreshUser } = useAuth();
   const [employeeNumber, setEmployeeNumber] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birthdate, setBirthdate] = useState(DEFAULT_BIRTHDATE);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -26,6 +31,8 @@ export default function LoginPage() {
         setError(result.error);
       } else {
         await refreshUser();
+        router.replace("/");
+        router.refresh();
       }
     });
   };
@@ -56,13 +63,12 @@ export default function LoginPage() {
               </label>
               <input
                 type="text"
-                inputMode="numeric"
                 value={employeeNumber}
                 onChange={(e) => {
                   setEmployeeNumber(e.target.value);
                   setError(null);
                 }}
-                placeholder="例: 1001"
+                placeholder="例: 10020"
                 className="w-full px-4 py-3 rounded-xl border border-[var(--color-warm-200)] bg-[var(--color-warm-50)] text-[var(--color-warm-800)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors placeholder:text-[var(--color-warm-300)]"
               />
             </div>
@@ -72,20 +78,18 @@ export default function LoginPage() {
               <label className="block text-sm font-medium text-[var(--color-warm-700)] mb-1.5">
                 生年月日
               </label>
-              <input
-                type="date"
+              <BirthdatePicker
                 value={birthdate}
-                onChange={(e) => {
-                  setBirthdate(e.target.value);
+                onChange={(v) => {
+                  setBirthdate(v);
                   setError(null);
                 }}
-                className="w-full px-4 py-3 rounded-xl border border-[var(--color-warm-200)] bg-[var(--color-warm-50)] text-[var(--color-warm-800)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors placeholder:text-[var(--color-warm-300)]"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleLogin();
-                }}
               />
-              <p className="text-[10px] text-[var(--color-warm-400)] mt-1">
-                例: 1990年1月15日の場合 → 1990-01-15
+              <p className="text-xs text-center text-[var(--color-warm-600)] mt-2 font-medium">
+                選択中: {birthdate}
+              </p>
+              <p className="text-[10px] text-[var(--color-warm-400)] mt-1 text-center">
+                各列をスクロールして選択
               </p>
             </div>
 

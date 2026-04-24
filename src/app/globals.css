@@ -41,3 +41,12 @@ body {
 .animate-card-in {
   animation: card-in 0.35s ease-out both;
 }
+
+/* Hide scrollbars for wheel pickers (iOS-style pickers need no visible scrollbar) */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / WebKit */
+}
