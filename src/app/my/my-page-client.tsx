@@ -5,7 +5,8 @@ import { Inbox, Send, Trophy, Heart } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
 import CardItem from "@/components/card-item";
 import { useAuth } from "@/lib/auth-context";
-import { markAsReadAction } from "@/lib/actions";
+import { markAsReadAction, deleteCardAction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import type { ThanksCard, CategoryInfo } from "@/lib/types";
 
 type Tab = "received" | "sent";
@@ -24,6 +25,7 @@ export default function MyPageClient({
   categories,
 }: MyPageClientProps) {
   const { currentUser } = useAuth();
+  const router = useRouter();
   const [tab, setTab] = useState<Tab>("received");
   const [localReadIds, setLocalReadIds] = useState<Set<string>>(
     new Set(readCardIds)
@@ -288,6 +290,11 @@ export default function MyPageClient({
                 showFrom={tab === "received"}
                 showTo={tab === "sent"}
                 index={i}
+                onDelete={async (cardId) => {
+                  const res = await deleteCardAction(cardId);
+                  if (!res.error) router.refresh();
+                  return res;
+                }}
               />
             </div>
           ))}

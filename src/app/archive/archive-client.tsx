@@ -13,7 +13,8 @@ import {
 } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
 import CardItem from "@/components/card-item";
-import { toggleReactionAction } from "@/lib/actions";
+import { toggleReactionAction, deleteCardAction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import type { ThanksCard, Employee, CategoryInfo } from "@/lib/types";
 
 type SortMode = "new" | "hot";
@@ -52,8 +53,18 @@ export default function ArchiveClient({
   categories,
   currentUserId,
 }: ArchiveClientProps) {
+  const router = useRouter();
   const [cards, setCards] = useState(initialCards);
   const [, startTransition] = useTransition();
+
+  const handleDelete = async (cardId: string) => {
+    const res = await deleteCardAction(cardId);
+    if (!res.error) {
+      setCards((prev) => prev.filter((c) => c.id !== cardId));
+      router.refresh();
+    }
+    return res;
+  };
 
   const availableMonths = useMemo(() => getAvailableMonths(cards), [cards]);
   const [monthIndex, setMonthIndex] = useState(0);
@@ -530,6 +541,7 @@ export default function ArchiveClient({
             key={card.id}
             card={card}
             onToggleReact={handleToggleReact}
+            onDelete={handleDelete}
             index={i}
           />
         ))}

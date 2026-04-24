@@ -157,6 +157,55 @@ export async function toggleReactionAction(
   return {};
 }
 
+// --- Delete card ---
+
+export async function deleteCardAction(
+  cardId: string
+): Promise<{ error?: string }> {
+  if (!cardId) return { error: "カードIDが指定されていません" };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "ログインが必要です" };
+
+  const employeeId = user.app_metadata?.employee_id;
+  const isAdmin = Boolean(user.app_metadata?.is_admin);
+  if (!employeeId) return { error: "社員情報が見つかりません" };
+
+  // Fetch the card to verify ownership before delete
+  const { data: card, error: fetchErr } = await supabase
+    .from("thanks_cards")
+    .select("id, from_id")
+    .eq("id", cardId)
+    .single();
+
+  if (fetchErr || !card) {
+    return { error: "カードが見つかりません" };
+  }
+  if (card.from_id !== employeeId && !isAdmin) {
+    return { error: "このカードを削除する権限がありません" };
+  }
+
+  // Hard delete — card_categories / card_reactions / card_reads cascade via FK
+  const { error: delErr } = await supabase
+    .from("thanks_cards")
+    .delete()
+    .eq("id", cardId);
+
+  if (delErr) {
+    return { error: "カードの削除に失敗しました" };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/my");
+  revalidatePath("/archive");
+  revalidatePath("/ranking");
+  revalidatePath("/admin");
+  return {};
+}
+
 // --- Admin: Pick ---
 
 export async function togglePickedAction(

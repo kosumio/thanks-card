@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
 import CardItem from "@/components/card-item";
-import { togglePickedAction } from "@/lib/actions";
+import { togglePickedAction, deleteCardAction } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import type { ThanksCard, Employee, CategoryInfo } from "@/lib/types";
 
 interface AdminClientProps {
@@ -25,11 +26,21 @@ export default function AdminClient({
   employees,
   categories,
 }: AdminClientProps) {
+  const router = useRouter();
   const [cards, setCards] = useState(initialCards);
   const [showAllCards, setShowAllCards] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchCategory, setSearchCategory] = useState<string | null>(null);
   const [, startTransition] = useTransition();
+
+  const handleDelete = async (cardId: string) => {
+    const res = await deleteCardAction(cardId);
+    if (!res.error) {
+      setCards((prev) => prev.filter((c) => c.id !== cardId));
+      router.refresh();
+    }
+    return res;
+  };
 
   // Derive unique locations from employees
   const locations = useMemo(() => {
@@ -256,7 +267,7 @@ export default function AdminClient({
           <div className="space-y-3">
             {stats.pickedCards.map((card, i) => (
               <div key={card.id} className="relative">
-                <CardItem card={card} index={i} />
+                <CardItem card={card} index={i} onDelete={handleDelete} />
                 <button
                   onClick={() => handleTogglePicked(card.id)}
                   className="absolute top-2 right-2 text-[10px] px-2 py-1 rounded-lg bg-amber-100 text-amber-700 hover:bg-amber-200 transition-colors font-medium"
@@ -371,7 +382,7 @@ export default function AdminClient({
                     </p>
                     {filtered.map((card, i) => (
                       <div key={card.id} className="relative">
-                        <CardItem card={card} index={i} />
+                        <CardItem card={card} index={i} onDelete={handleDelete} />
                         <button
                           onClick={() => handleTogglePicked(card.id)}
                           className={`absolute top-2 right-2 text-[10px] px-2 py-1 rounded-lg font-medium transition-colors ${
