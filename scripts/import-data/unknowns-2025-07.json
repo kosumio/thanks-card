@@ -1,0 +1,145 @@
+[
+  {
+    "name": "吉田栄作",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "天野明"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "猪俣剛史"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "阿部綺花"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "本多真基"
+      }
+    ]
+  },
+  {
+    "name": "香川知世",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      }
+    ]
+  },
+  {
+    "name": "緑川好美",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "田口絵美"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "坂上亮"
+      }
+    ]
+  },
+  {
+    "name": "杉原絵玲奈",
+    "count": 3,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      }
+    ]
+  },
+  {
+    "name": "窪田ネニータ",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "松嶋基"
+      }
+    ]
+  },
+  {
+    "name": "城克次",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/顧問",
+        "other": "松嶋基"
+      }
+    ]
+  },
+  {
+    "name": "尾崎",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/0",
+        "other": "山口正宏"
+      }
+    ]
+  },
+  {
+    "name": "中上征三",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/管理部",
+        "other": "和田一也"
+      }
+    ]
+  }
+]

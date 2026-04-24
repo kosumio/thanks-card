@@ -1,0 +1,287 @@
+[
+  {
+    "name": "杉原絵玲奈",
+    "count": 11,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "勝又玲子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "勝又玲子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "勝又玲子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      }
+    ]
+  },
+  {
+    "name": "石井玲香",
+    "count": 10,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "香川知世"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "勝又玲子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "勝又玲子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      }
+    ]
+  },
+  {
+    "name": "勝又玲子",
+    "count": 8,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "杉原絵玲奈"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      }
+    ]
+  },
+  {
+    "name": "香川知世",
+    "count": 6,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "石井玲香"
+      }
+    ]
+  },
+  {
+    "name": "メイ トウー ミョ",
+    "count": 3,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "布施藍美"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "松嶋基"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "小川美咲"
+      }
+    ]
+  },
+  {
+    "name": "中上征三",
+    "count": 3,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/管理部",
+        "other": "上野裕士"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/管理部",
+        "other": "山﨑綾子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/管理部",
+        "other": "大川竜矢"
+      }
+    ]
+  },
+  {
+    "name": "遠藤さゆり",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "石井幹子"
+      }
+    ]
+  },
+  {
+    "name": "緑川好美",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "仲野恭弘"
+      }
+    ]
+  },
+  {
+    "name": "岩本新二",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/鮮魚課",
+        "other": "秋山勇気"
+      }
+    ]
+  },
+  {
+    "name": "太田栄",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "小川美咲"
+      }
+    ]
+  }
+]

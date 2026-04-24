@@ -1,0 +1,230 @@
+[
+  {
+    "name": "香川知世",
+    "count": 7,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "佐々木千奈美"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "坂上亮"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "加藤晋也"
+      }
+    ]
+  },
+  {
+    "name": "緑川好美",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "坂上亮"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "田口絵美"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋HD/経営企画室",
+        "other": "井島直子"
+      }
+    ]
+  },
+  {
+    "name": "吉田栄作",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "木下智裕"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "境田美行"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "畑山智裕"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "小川美咲"
+      }
+    ]
+  },
+  {
+    "name": "窪田ネニータ",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "畑山智裕"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "倉橋圭"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "境田美行"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "木下智裕"
+      }
+    ]
+  },
+  {
+    "name": "勝又玲子",
+    "count": 3,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      }
+    ]
+  },
+  {
+    "name": "深澤みづき",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "遠藤さゆり"
+      }
+    ]
+  },
+  {
+    "name": "遠藤さゆり",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "深澤みづき"
+      }
+    ]
+  },
+  {
+    "name": "中村帆花",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "太田詩織"
+      }
+    ]
+  },
+  {
+    "name": "市川麻紀",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/マネージャー",
+        "other": "長谷川弓恵"
+      }
+    ]
+  },
+  {
+    "name": "市川将史",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/役員",
+        "other": "西野希恵"
+      }
+    ]
+  },
+  {
+    "name": "楠美幸子",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/経理課",
+        "other": "西野希恵"
+      }
+    ]
+  },
+  {
+    "name": "中上征三",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "鮑屋HD/管理部",
+        "other": "村山敦史"
+      }
+    ]
+  },
+  {
+    "name": "山本幸雄",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/市場課",
+        "other": "長谷川弓恵"
+      }
+    ]
+  }
+]

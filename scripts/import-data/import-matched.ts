@@ -1,6 +1,7 @@
-// Import fully-matched cards from matched.json into thanks_cards table.
-// created_at is set to 2026-03-31 12:00 JST (month-end convention per CEO).
-// Writes import-result.json with inserted card ids for audit / rollback.
+// Import fully-matched cards from matched-{YYYY-MM}.json with created_at
+// set to the last day of that month at 12:00 JST.
+// Usage: npx tsx scripts/import-data/import-matched.ts 2026-03
+// Writes import-result-{YYYY-MM}.json for audit / rollback.
 
 import { createClient } from "@supabase/supabase-js";
 import * as dotenv from "dotenv";
@@ -11,14 +12,24 @@ dotenv.config({ path: ".env.local" });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const month = process.argv[2];
+if (!month || !/^\d{4}-\d{2}$/.test(month)) {
+  console.error("Usage: npx tsx import-matched.ts YYYY-MM");
+  process.exit(1);
+}
+
+function lastDayOfMonth(ym: string): string {
+  const [y, m] = ym.split("-").map(Number);
+  const d = new Date(y, m, 0).getDate();
+  return `${ym}-${String(d).padStart(2, "0")}T12:00:00+09:00`;
+}
+const CREATED_AT = lastDayOfMonth(month);
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
   { auth: { autoRefreshToken: false, persistSession: false } }
 );
-
-// Month-end timestamp for 2026-03 cards
-const CREATED_AT = "2026-03-31T12:00:00+09:00";
 
 interface Matched {
   line: number;
@@ -30,10 +41,13 @@ interface Matched {
 }
 
 (async () => {
-  const raw = fs.readFileSync(path.join(__dirname, "matched.json"), "utf-8");
-  const cards = JSON.parse(raw) as Matched[];
+  const matchedPath = path.join(__dirname, `matched-${month}.json`);
+  if (!fs.existsSync(matchedPath)) {
+    console.error(`matched file not found: ${matchedPath}`);
+    process.exit(1);
+  }
+  const cards = JSON.parse(fs.readFileSync(matchedPath, "utf-8")) as Matched[];
 
-  // Resolve employee_number -> uuid
   const empNumbers = Array.from(
     new Set(cards.flatMap((c) => [c.matched.to.id, c.matched.from.id]))
   );
@@ -47,20 +61,22 @@ interface Matched {
   }
   const idOf = new Map(emps.map((e) => [e.employee_number, e.id as string]));
 
-  console.log(`--- importing ${cards.length} cards (created_at=${CREATED_AT}) ---`);
+  console.log(`[${month}] importing ${cards.length} cards (created_at=${CREATED_AT})`);
 
   const results: Array<{ line: number; card_id?: string; error?: string }> = [];
+  let ok = 0;
+  let fail = 0;
   for (const c of cards) {
     const fromUuid = idOf.get(c.matched.from.id);
     const toUuid = idOf.get(c.matched.to.id);
     if (!fromUuid || !toUuid) {
-      console.error(`  line ${c.line}: could not resolve uuid`);
       results.push({ line: c.line, error: "uuid resolve failed" });
+      fail++;
       continue;
     }
     if (fromUuid === toUuid) {
-      console.error(`  line ${c.line}: from === to, skipped`);
       results.push({ line: c.line, error: "self-send skipped" });
+      fail++;
       continue;
     }
     const { data, error } = await supabase
@@ -74,23 +90,18 @@ interface Matched {
       .select("id")
       .single();
     if (error) {
-      console.error(`  line ${c.line}: ${error.message}`);
       results.push({ line: c.line, error: error.message });
+      fail++;
     } else {
-      console.log(
-        `  line ${c.line}: ${c.matched.from.name} → ${c.matched.to.name}  (card ${data.id})`
-      );
       results.push({ line: c.line, card_id: data.id });
+      ok++;
     }
   }
 
-  const ok = results.filter((r) => r.card_id).length;
-  const fail = results.filter((r) => r.error).length;
-  console.log(`--- done: ${ok} inserted, ${fail} failed ---`);
-
+  console.log(`[${month}] done: ${ok} inserted, ${fail} failed`);
   fs.writeFileSync(
-    path.join(__dirname, "import-result.json"),
-    JSON.stringify({ created_at: CREATED_AT, total: cards.length, results }, null, 2),
+    path.join(__dirname, `import-result-${month}.json`),
+    JSON.stringify({ month, created_at: CREATED_AT, total: cards.length, ok, fail, results }, null, 2),
     "utf-8"
   );
 })();
