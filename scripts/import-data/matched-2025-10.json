@@ -50,6 +50,31 @@
     "message_length": 46
   },
   {
+    "line": 3,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "外食課",
+      "name": "矢嶋寛"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "賞味の少ない商品の販売協力ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10081",
+        "name": "矢嶋　寛"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 25
+  },
+  {
     "line": 4,
     "to_raw": {
       "company": "鮑屋HD",
@@ -525,6 +550,56 @@
     "message_length": 36
   },
   {
+    "line": 47,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "瀬戸誠司"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業二部",
+      "name": "吉村一将"
+    },
+    "message": "私が休みの日に責任感を持ち、代わりに最後まで検品してくれてありがとう。",
+    "matched": {
+      "to": {
+        "id": "10073",
+        "name": "瀬戸誠司"
+      },
+      "from": {
+        "id": "10012",
+        "name": "吉村一将"
+      }
+    },
+    "message_length": 35
+  },
+  {
+    "line": 48,
+    "to_raw": {
+      "company": "ｱﾊﾞﾛﾝ六左衛門",
+      "dept": "六左衛門",
+      "name": "小栗輝彦"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "試飲会、おかげさまで楽しかったです。お酒、おむすびの準備大変だったね。いつ食べても塩加減、サイズ、具の量最高ですね！",
+    "matched": {
+      "to": {
+        "id": "1240901",
+        "name": "小栗輝彦"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 58
+  },
+  {
     "line": 49,
     "to_raw": {
       "company": "アバロン工場",
@@ -623,6 +698,31 @@
       }
     },
     "message_length": 33
+  },
+  {
+    "line": 55,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "大川竜矢"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "休日のマルエス便の対応、いつもありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "1220401",
+        "name": "大川竜矢"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 26
   },
   {
     "line": 56,

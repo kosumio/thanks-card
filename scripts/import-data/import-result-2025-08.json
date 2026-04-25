@@ -1,8 +1,8 @@
 {
   "month": "2025-08",
   "created_at": "2025-08-31T12:00:00+09:00",
-  "total": 42,
-  "ok": 42,
+  "total": 44,
+  "ok": 44,
   "fail": 0,
   "results": [
     {
@@ -172,6 +172,14 @@
     {
       "line": 68,
       "card_id": "89b2aa86-4a24-41f9-87ca-994bc60ce7cd"
+    },
+    {
+      "line": 23,
+      "card_id": "69c783fb-b651-4aa2-9ce4-c266cf11819b"
+    },
+    {
+      "line": 35,
+      "card_id": "9ae47e66-f872-422f-92f9-677c39fdf939"
     }
   ]
 }

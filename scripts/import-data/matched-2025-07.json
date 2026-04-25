@@ -400,6 +400,31 @@
     "message_length": 27
   },
   {
+    "line": 19,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "天野明"
+    },
+    "message": "段ボールを片付けていただきありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10021",
+        "name": "吉田栄作"
+      },
+      "from": {
+        "id": "1240903",
+        "name": "天野　明"
+      }
+    },
+    "message_length": 24
+  },
+  {
     "line": 20,
     "to_raw": {
       "company": "アバロン工場",
@@ -525,6 +550,81 @@
     "message_length": 52
   },
   {
+    "line": 26,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "ｱﾊﾞﾛﾝ営業課",
+      "name": "猪俣剛史"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "ゲーム担当ありがとうございます。とても楽しめました。",
+    "matched": {
+      "to": {
+        "id": "10020",
+        "name": "猪俣剛史"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 26
+  },
+  {
+    "line": 27,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "阿部綺花"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "ゲーム担当ありがとうございます。とても楽しめました。",
+    "matched": {
+      "to": {
+        "id": "10064",
+        "name": "阿部綺花"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 26
+  },
+  {
+    "line": 28,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "品質管理室",
+      "name": "本多真基"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "ミキシングの配管交換とカーテンの取り付けありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "1250401",
+        "name": "本多真基"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 32
+  },
+  {
     "line": 29,
     "to_raw": {
       "company": "アバロン工場",
@@ -625,6 +725,31 @@
     "message_length": 48
   },
   {
+    "line": 38,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "2日間ミナカの面談ありがとうございました。お休みの中有意義なものになる面談に結果的になると良いです…。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 51
+  },
+  {
     "line": 39,
     "to_raw": {
       "company": "鮑屋HD",
@@ -673,6 +798,31 @@
       }
     },
     "message_length": 61
+  },
+  {
+    "line": 41,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "会社の方連れて箱根まで来て下さり、ありがとうございます！こうやってお店で会えると現場の様子見てお話できるので嬉しいです。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 60
   },
   {
     "line": 42,
@@ -1200,6 +1350,56 @@
     "message_length": 53
   },
   {
+    "line": 65,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "営業推進部",
+      "name": "田口絵美"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "ラインワークス掲示板運用の際、様々な課題点を整理して意見提案してくれてありがとうございます。より良いものにする為にすごく参考になりました。これからも宜しくお願いしますね。",
+    "matched": {
+      "to": {
+        "id": "220201",
+        "name": "田口絵美"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 85
+  },
+  {
+    "line": 66,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "営業推進部",
+      "name": "坂上亮"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "急遽、観光協会の対応、引き受けてくださりありがとうございます！いつも急な対応も嫌な顔せず即対応してくれて本当に助けられてます。",
+    "matched": {
+      "to": {
+        "id": "200403",
+        "name": "坂上　亮"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 63
+  },
+  {
     "line": 67,
     "to_raw": {
       "company": "鮑屋HD",
@@ -1223,6 +1423,31 @@
       }
     },
     "message_length": 47
+  },
+  {
+    "line": 68,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "市場課",
+      "name": "和田一也"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "体調悪かった一昨日、自宅まで送ってくれてありがとうございました。車中の会話も超快適でした。",
+    "matched": {
+      "to": {
+        "id": "10042",
+        "name": "和田一也"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 45
   },
   {
     "line": 69,

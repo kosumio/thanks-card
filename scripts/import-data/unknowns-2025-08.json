@@ -123,17 +123,6 @@
     ]
   },
   {
-    "name": "山川隆之",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋本社/役員",
-        "other": "作田健吾"
-      }
-    ]
-  },
-  {
     "name": "気賀沢弘美",
     "count": 1,
     "samples": [
@@ -141,17 +130,6 @@
         "direction": "to",
         "rawLocation": "鮑屋本社/経理課",
         "other": "仲野恭弘"
-      }
-    ]
-  },
-  {
-    "name": "緑川好美",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "長谷川弓恵"
       }
     ]
   },

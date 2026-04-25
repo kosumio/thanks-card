@@ -220,27 +220,6 @@
     ]
   },
   {
-    "name": "中上征三",
-    "count": 3,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "上野裕士"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "山﨑綾子"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "大川竜矢"
-      }
-    ]
-  },
-  {
     "name": "遠藤さゆり",
     "count": 1,
     "samples": [
@@ -248,17 +227,6 @@
         "direction": "from",
         "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
         "other": "石井幹子"
-      }
-    ]
-  },
-  {
-    "name": "緑川好美",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "仲野恭弘"
       }
     ]
   },

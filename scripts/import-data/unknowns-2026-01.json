@@ -128,54 +128,6 @@
     ]
   },
   {
-    "name": "吉田栄作",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "天野明"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "元田麗太"
-      }
-    ]
-  },
-  {
-    "name": "緑川好美",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "坂上亮"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      }
-    ]
-  },
-  {
-    "name": "中上征三",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "小田悠平"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "井島直子"
-      }
-    ]
-  },
-  {
     "name": "葛谷柚香",
     "count": 1,
     "samples": [
@@ -216,17 +168,6 @@
         "direction": "to",
         "rawLocation": "鮑屋本社/マネージャー",
         "other": "仲野恭弘"
-      }
-    ]
-  },
-  {
-    "name": "吉村一将",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "中村日道"
       }
     ]
   },

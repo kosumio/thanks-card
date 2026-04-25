@@ -175,6 +175,31 @@
     "message_length": 45
   },
   {
+    "line": 13,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "保健所の立ち合い、ありがとうございます。無事に許可が下りて良かったです。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 36
+  },
+  {
     "line": 14,
     "to_raw": {
       "company": "鮑屋HD",
@@ -198,6 +223,31 @@
       }
     },
     "message_length": 59
+  },
+  {
+    "line": 20,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "梅田悠佳"
+    },
+    "message": "お店に来てくださったとき、優しく話しかけて下さり、ありがとうございます。中々お会いする機会はありませんが、また来て頂いた際はよろしくお願いします！",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "240917",
+        "name": "梅田悠佳"
+      }
+    },
+    "message_length": 73
   },
   {
     "line": 21,
@@ -248,6 +298,31 @@
       }
     },
     "message_length": 81
+  },
+  {
+    "line": 25,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "長谷川弓恵"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "いつもごみの取りまとめありがとうございます。いつでも手際よく動いてくれて助かってます！気配りに感謝です！",
+    "matched": {
+      "to": {
+        "id": "10052",
+        "name": "長谷川弓恵"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 52
   },
   {
     "line": 26,
@@ -350,6 +425,31 @@
     "message_length": 14
   },
   {
+    "line": 31,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "営業推進部",
+      "name": "田口絵美"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "PDFファイルの解読ありがとう。あの状況での瞬殺対応の感謝です。今後も田口さんならではのスキルに頼らせていただきます。",
+    "matched": {
+      "to": {
+        "id": "220201",
+        "name": "田口絵美"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 59
+  },
+  {
     "line": 32,
     "to_raw": {
       "company": "鮑屋本社",
@@ -425,6 +525,31 @@
     "message_length": 59
   },
   {
+    "line": 35,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業二部",
+      "name": "吉村一将"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "吉村さんのネットワークで私の首の皮一枚繋がりました。根気のいる情報収集だったと思います。ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10012",
+        "name": "吉村一将"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 56
+  },
+  {
     "line": 36,
     "to_raw": {
       "company": "鮑屋本社",
@@ -450,6 +575,31 @@
     "message_length": 34
   },
   {
+    "line": 37,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "上野裕士"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "急な依頼ごとでも器用にこなしていく姿勢に感服しています。ちゃんと息抜きもしてくださいね！",
+    "matched": {
+      "to": {
+        "id": "10104",
+        "name": "上野裕士"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 44
+  },
+  {
     "line": 38,
     "to_raw": {
       "company": "鮑屋本社",
@@ -473,6 +623,31 @@
       }
     },
     "message_length": 45
+  },
+  {
+    "line": 40,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "西野希恵"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "小田原提灯について質問した際、丁寧に教えてくれてありがとうございました。説明と合わせて、同時に資料まで見つけてくれて、凄く助かりました。",
+    "matched": {
+      "to": {
+        "id": "10014",
+        "name": "西野希恵"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 68
   },
   {
     "line": 41,
@@ -548,6 +723,31 @@
       }
     },
     "message_length": 46
+  },
+  {
+    "line": 44,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "天野明"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "㋓の発注書の改善ありがとうございます。準備がしやすくなりました。",
+    "matched": {
+      "to": {
+        "id": "1240903",
+        "name": "天野　明"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 32
   },
   {
     "line": 45,

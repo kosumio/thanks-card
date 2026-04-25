@@ -234,58 +234,6 @@
     ]
   },
   {
-    "name": "緑川好美",
-    "count": 4,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "松本真実"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      }
-    ]
-  },
-  {
-    "name": "吉村一将",
-    "count": 4,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "金澤正"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "瀬戸誠司"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "長谷川弓恵"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "秋山勇気"
-      }
-    ]
-  },
-  {
     "name": "タン ジン アゥン",
     "count": 4,
     "samples": [
@@ -312,27 +260,6 @@
     ]
   },
   {
-    "name": "吉田栄作",
-    "count": 3,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "窪田ネニータ"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "メイ トウー ミョ"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "ス ナンダー トゥン"
-      }
-    ]
-  },
-  {
     "name": "窪田ネニータ",
     "count": 2,
     "samples": [
@@ -345,22 +272,6 @@
         "direction": "from",
         "rawLocation": "アバロン工場/製造課",
         "other": "吉田栄作"
-      }
-    ]
-  },
-  {
-    "name": "中上征三",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "秋山勇気"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "井島直子"
       }
     ]
   },

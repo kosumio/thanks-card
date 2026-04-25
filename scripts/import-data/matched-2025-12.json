@@ -350,6 +350,31 @@
     "message_length": 53
   },
   {
+    "line": 41,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "仲野恭弘"
+    },
+    "message": "いつも相談に乗っていただきありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "10083",
+        "name": "仲野恭弘"
+      }
+    },
+    "message_length": 24
+  },
+  {
     "line": 42,
     "to_raw": {
       "company": "鮑屋本社",
@@ -475,6 +500,31 @@
     "message_length": 47
   },
   {
+    "line": 48,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "上野裕士"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "会計入力で忙しい中、社販のサポートをしてくれて大変助かりました。いつも情報感度が高く感服してます。",
+    "matched": {
+      "to": {
+        "id": "10104",
+        "name": "上野裕士"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 49
+  },
+  {
     "line": 49,
     "to_raw": {
       "company": "エンイート",
@@ -550,6 +600,31 @@
     "message_length": 32
   },
   {
+    "line": 52,
+    "to_raw": {
+      "company": "鮑屋横浜",
+      "dept": "横浜支社管理課",
+      "name": "山﨑綾子"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "社内便の封筒作成ありがとう！封入口に工夫をこしらえてくれて大好評です。",
+    "matched": {
+      "to": {
+        "id": "10092",
+        "name": "山﨑綾子"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 35
+  },
+  {
     "line": 53,
     "to_raw": {
       "company": "鮑屋本社",
@@ -573,6 +648,31 @@
       }
     },
     "message_length": 39
+  },
+  {
+    "line": 54,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "大川竜矢"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "当直のお掃除の日、気にかけてくれてありがとうございます。お蔭様でグループLINEが機能してきました。",
+    "matched": {
+      "to": {
+        "id": "1220401",
+        "name": "大川竜矢"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 50
   },
   {
     "line": 55,

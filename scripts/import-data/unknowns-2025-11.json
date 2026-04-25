@@ -46,63 +46,6 @@
     ]
   },
   {
-    "name": "吉田栄作",
-    "count": 5,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "尾崎"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "小川美咲"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "猪俣剛史"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "太田栄"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "畑山智裕"
-      }
-    ]
-  },
-  {
-    "name": "緑川好美",
-    "count": 4,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "上野裕士"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "長谷川弓恵"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "長谷川弓恵"
-      }
-    ]
-  },
-  {
     "name": "勝又玲子",
     "count": 4,
     "samples": [
@@ -273,17 +216,6 @@
     ]
   },
   {
-    "name": "吉村一将",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "元田麗太"
-      }
-    ]
-  },
-  {
     "name": "岩本新二",
     "count": 1,
     "samples": [
@@ -291,17 +223,6 @@
         "direction": "to",
         "rawLocation": "鮑屋本社/鮮魚課",
         "other": "瀬戸誠司"
-      }
-    ]
-  },
-  {
-    "name": "山川隆之",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋本社/役員",
-        "other": "上野裕士"
       }
     ]
   }

@@ -148,22 +148,6 @@
     ]
   },
   {
-    "name": "吉田栄作",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "矢嶋寛"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "大川竜矢"
-      }
-    ]
-  },
-  {
     "name": "タン ジン アゥン",
     "count": 2,
     "samples": [
@@ -176,22 +160,6 @@
         "direction": "from",
         "rawLocation": "鮑屋本社/加工課",
         "other": "中村日道"
-      }
-    ]
-  },
-  {
-    "name": "吉村一将",
-    "count": 2,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "瀬戸誠司"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋本社/営業二部",
-        "other": "ナイン エー"
       }
     ]
   },
@@ -230,17 +198,6 @@
         "direction": "to",
         "rawLocation": "エンイート/箱根ﾁｰﾃﾗ工房",
         "other": "井島直子"
-      }
-    ]
-  },
-  {
-    "name": "中上征三",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "小栗輝彦"
       }
     ]
   },

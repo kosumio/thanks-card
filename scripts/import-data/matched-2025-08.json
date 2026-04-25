@@ -400,6 +400,31 @@
     "message_length": 55
   },
   {
+    "line": 23,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "役員",
+      "name": "山川隆之"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "作田健吾"
+    },
+    "message": "お忙しい中、マルエスの中継積込お手伝いいただき、大いに助かりました！ありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "6",
+        "name": "山川隆之"
+      },
+      "from": {
+        "id": "10102",
+        "name": "作田健吾"
+      }
+    },
+    "message_length": 45
+  },
+  {
     "line": 24,
     "to_raw": {
       "company": "鮑屋本社",
@@ -648,6 +673,31 @@
       }
     },
     "message_length": 50
+  },
+  {
+    "line": 35,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "長谷川弓恵"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "疲れている時に優しい言葉と気遣いありがとう！本当に疲れていたので、凄くありがたかったです！",
+    "matched": {
+      "to": {
+        "id": "10052",
+        "name": "長谷川弓恵"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 45
   },
   {
     "line": 36,

@@ -10,29 +10,27 @@ export async function loginAction(
   formData: FormData
 ): Promise<{ error?: string }> {
   const employeeNumber = formData.get("employeeNumber") as string;
-  const birthdate = formData.get("birthdate") as string;
 
-  if (!employeeNumber || !birthdate) {
-    return { error: "社員番号と生年月日を入力してください" };
+  if (!employeeNumber) {
+    return { error: "社員番号を入力してください" };
   }
 
-  // Look up active employee by employee_number + birthdate
+  // Look up active employee by employee_number
   const admin = createAdminClient();
   const { data: emp, error: lookupError } = await admin
     .from("employees")
-    .select("id, employee_number, birthdate")
+    .select("id, employee_number")
     .eq("employee_number", employeeNumber)
-    .eq("birthdate", birthdate)
     .eq("is_active", true)
     .single();
 
   if (lookupError || !emp) {
-    return { error: "社員番号または生年月日が正しくありません" };
+    return { error: "社員番号が正しくありません" };
   }
 
   // Sign in via Supabase Auth with deterministic credentials
   const email = `${emp.employee_number}@thanks-card.local`;
-  const password = `tc_${emp.birthdate}_${emp.employee_number}`;
+  const password = `tc_${emp.employee_number}`;
 
   const supabase = await createClient();
   const { error: signInError } = await supabase.auth.signInWithPassword({

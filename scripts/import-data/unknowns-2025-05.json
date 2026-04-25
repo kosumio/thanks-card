@@ -41,58 +41,6 @@
     ]
   },
   {
-    "name": "緑川好美",
-    "count": 4,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "坂上亮"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "田口絵美"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋HD/経営企画室",
-        "other": "井島直子"
-      }
-    ]
-  },
-  {
-    "name": "吉田栄作",
-    "count": 4,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "木下智裕"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "境田美行"
-      },
-      {
-        "direction": "to",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "畑山智裕"
-      },
-      {
-        "direction": "from",
-        "rawLocation": "アバロン工場/製造課",
-        "other": "小川美咲"
-      }
-    ]
-  },
-  {
     "name": "窪田ネニータ",
     "count": 4,
     "samples": [
@@ -184,17 +132,6 @@
     ]
   },
   {
-    "name": "市川将史",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "to",
-        "rawLocation": "鮑屋本社/役員",
-        "other": "西野希恵"
-      }
-    ]
-  },
-  {
     "name": "楠美幸子",
     "count": 1,
     "samples": [
@@ -202,17 +139,6 @@
         "direction": "to",
         "rawLocation": "鮑屋本社/経理課",
         "other": "西野希恵"
-      }
-    ]
-  },
-  {
-    "name": "中上征三",
-    "count": 1,
-    "samples": [
-      {
-        "direction": "from",
-        "rawLocation": "鮑屋HD/管理部",
-        "other": "村山敦史"
       }
     ]
   },

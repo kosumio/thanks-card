@@ -325,6 +325,31 @@
     "message_length": 33
   },
   {
+    "line": 18,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "小川美咲"
+    },
+    "message": "殺菌釜を洗ってくれてありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10021",
+        "name": "吉田栄作"
+      },
+      "from": {
+        "id": "1250116",
+        "name": "小川美咲"
+      }
+    },
+    "message_length": 22
+  },
+  {
     "line": 21,
     "to_raw": {
       "company": "アバロン工場",
@@ -725,6 +750,31 @@
     "message_length": 31
   },
   {
+    "line": 54,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業二部",
+      "name": "吉村一将"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "加藤学"
+    },
+    "message": "インフルエンザによる欠勤・人員不足の中、気にかけて声をかけてくださりありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10012",
+        "name": "吉村一将"
+      },
+      "from": {
+        "id": "10103",
+        "name": "加藤　学"
+      }
+    },
+    "message_length": 46
+  },
+  {
     "line": 55,
     "to_raw": {
       "company": "アバロン工場",
@@ -798,6 +848,31 @@
       }
     },
     "message_length": 50
+  },
+  {
+    "line": 58,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "仲野恭弘"
+    },
+    "message": "ランキングありがとうございます。私も頑張ります！！",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "10083",
+        "name": "仲野恭弘"
+      }
+    },
+    "message_length": 25
   },
   {
     "line": 59,

@@ -75,6 +75,56 @@
     "message_length": 38
   },
   {
+    "line": 6,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "小川美咲"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "懇親会のゲーム担当ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "1250116",
+        "name": "小川美咲"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 21
+  },
+  {
+    "line": 7,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "ｱﾊﾞﾛﾝ営業課",
+      "name": "猪俣剛史"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "懇親会の段取り等、色々とありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10020",
+        "name": "猪俣剛史"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 23
+  },
+  {
     "line": 8,
     "to_raw": {
       "company": "アバロン工場",
@@ -200,6 +250,56 @@
     "message_length": 48
   },
   {
+    "line": 18,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "畑山智裕"
+    },
+    "message": "魚醤塩の作り方を教えてくれてありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10021",
+        "name": "吉田栄作"
+      },
+      "from": {
+        "id": "10056",
+        "name": "畑山智裕"
+      }
+    },
+    "message_length": 26
+  },
+  {
+    "line": 19,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "上野裕士"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "message": "セリツアーの集金対応、快く対応してくださりありがとうございました。担当業務外なのに感謝です！",
+    "matched": {
+      "to": {
+        "id": "10104",
+        "name": "上野裕士"
+      },
+      "from": {
+        "id": "10079",
+        "name": "緑川好美"
+      }
+    },
+    "message_length": 46
+  },
+  {
     "line": 20,
     "to_raw": {
       "company": "ｱﾊﾞﾛﾝ六左衛門",
@@ -300,6 +400,31 @@
     "message_length": 50
   },
   {
+    "line": 27,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "ミナカでのレジトラブルの対応、お休み中にも関わらずご対応くださり、すごく助かりました。ありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 54
+  },
+  {
     "line": 28,
     "to_raw": {
       "company": "エンイート",
@@ -348,6 +473,31 @@
       }
     },
     "message_length": 37
+  },
+  {
+    "line": 39,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "長谷川弓恵"
+    },
+    "message": "今日まで、親身に相談に乗ってくださりありがとうございました！わからないことが多すぎて不安でしたが、とても心強かったです！",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "10052",
+        "name": "長谷川弓恵"
+      }
+    },
+    "message_length": 60
   },
   {
     "line": 40,
@@ -650,6 +800,31 @@
     "message_length": 36
   },
   {
+    "line": 56,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "外食課",
+      "name": "元田麗太"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業二部",
+      "name": "吉村一将"
+    },
+    "message": "いつもセンターの冷凍庫をきれいに整理してくれてありがとうございます。商品が常に出しやすいです。",
+    "matched": {
+      "to": {
+        "id": "10045",
+        "name": "元田麗太"
+      },
+      "from": {
+        "id": "10012",
+        "name": "吉村一将"
+      }
+    },
+    "message_length": 47
+  },
+  {
     "line": 57,
     "to_raw": {
       "company": "鮑屋本社",
@@ -850,6 +1025,31 @@
     "message_length": 20
   },
   {
+    "line": 70,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "長谷川弓恵"
+    },
+    "message": "写真どうしようか悩みつつ、撮ることをお願いしてしまいましたが、快く引き受けてくださり助かりました。ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "10052",
+        "name": "長谷川弓恵"
+      }
+    },
+    "message_length": 61
+  },
+  {
     "line": 72,
     "to_raw": {
       "company": "鮑屋HD",
@@ -873,5 +1073,30 @@
       }
     },
     "message_length": 47
+  },
+  {
+    "line": 73,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "役員",
+      "name": "山川隆之"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "上野裕士"
+    },
+    "message": "ヤオマサ、クリスマスケーキの仲介をしていただきありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "6",
+        "name": "山川隆之"
+      },
+      "from": {
+        "id": "10104",
+        "name": "上野裕士"
+      }
+    },
+    "message_length": 35
   }
 ]

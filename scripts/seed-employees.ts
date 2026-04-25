@@ -78,8 +78,9 @@ async function seedOne(emp: EmployeeSeed) {
   }
 
   // 2. Create Supabase Auth user (or update existing)
+  // Login is by employee_number only — birthdate is no longer part of the password.
   const email = `${emp.employee_number}@thanks-card.local`;
-  const password = `tc_${emp.birthdate}_${emp.employee_number}`;
+  const password = `tc_${emp.employee_number}`;
 
   const { error: authErr } = await supabase.auth.admin.createUser({
     email,

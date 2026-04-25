@@ -100,6 +100,31 @@
     "message_length": 30
   },
   {
+    "line": 7,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "天野明"
+    },
+    "message": "納品された段ボールの収納していただき、ありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10021",
+        "name": "吉田栄作"
+      },
+      "from": {
+        "id": "1240903",
+        "name": "天野　明"
+      }
+    },
+    "message_length": 30
+  },
+  {
     "line": 8,
     "to_raw": {
       "company": "アバロン工場",
@@ -325,6 +350,31 @@
     "message_length": 21
   },
   {
+    "line": 18,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "外食課",
+      "name": "元田麗太"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "センターに間違って行ってしまった荷物を持って来て頂きありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10045",
+        "name": "元田麗太"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 37
+  },
+  {
     "line": 19,
     "to_raw": {
       "company": "アバロン工場",
@@ -450,6 +500,31 @@
     "message_length": 64
   },
   {
+    "line": 25,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "営業推進部",
+      "name": "坂上亮"
+    },
+    "message": "急な事情でミーティングに出席できず、ご迷惑をおかけしましたが、快くフォローいただき、本当に助かりました。ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200403",
+        "name": "坂上　亮"
+      }
+    },
+    "message_length": 64
+  },
+  {
     "line": 26,
     "to_raw": {
       "company": "鮑屋本社",
@@ -473,6 +548,31 @@
       }
     },
     "message_length": 34
+  },
+  {
+    "line": 27,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "鮮魚課",
+      "name": "中村日道"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業二部",
+      "name": "吉村一将"
+    },
+    "message": "営業から経理への仕事の受け渡しを丁寧にやってくれて感謝しています。",
+    "matched": {
+      "to": {
+        "id": "10098",
+        "name": "中村日道"
+      },
+      "from": {
+        "id": "10012",
+        "name": "吉村一将"
+      }
+    },
+    "message_length": 33
   },
   {
     "line": 28,
@@ -650,6 +750,31 @@
     "message_length": 52
   },
   {
+    "line": 36,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "小田悠平"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "message": "年末高材の手配ありがとうございました。名司令塔のおかげでリカバーしてもらい助けられました。",
+    "matched": {
+      "to": {
+        "id": "10058",
+        "name": "小田悠平"
+      },
+      "from": {
+        "id": "10053",
+        "name": "中上征三"
+      }
+    },
+    "message_length": 45
+  },
+  {
     "line": 41,
     "to_raw": {
       "company": "エンイート",
@@ -700,6 +825,31 @@
     "message_length": 34
   },
   {
+    "line": 45,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "経営企画室",
+      "name": "緑川好美"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "いつも的確な指示をありがとうございます。笑顔とそのパワーでお会いする度、頑張ろうと思えてます。",
+    "matched": {
+      "to": {
+        "id": "10079",
+        "name": "緑川好美"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 47
+  },
+  {
     "line": 48,
     "to_raw": {
       "company": "エンイート",
@@ -723,6 +873,31 @@
       }
     },
     "message_length": 69
+  },
+  {
+    "line": 50,
+    "to_raw": {
+      "company": "鮑屋HD",
+      "dept": "管理部",
+      "name": "中上征三"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "勤務時間の件すぐに確認取ってくださり、ありがとうございました。しっかり時間調整してシフト作ります。",
+    "matched": {
+      "to": {
+        "id": "10053",
+        "name": "中上征三"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 49
   },
   {
     "line": 52,
