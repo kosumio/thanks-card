@@ -9,30 +9,31 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export async function loginAction(
   formData: FormData
 ): Promise<{ error?: string }> {
-  const employeeNumber = formData.get("employeeNumber") as string;
-  const birthdate = formData.get("birthdate") as string;
+  // Primary path: name-based login provides employeeId (uuid).
+  // Fallback path: employeeNumber (kept for compatibility / API callers).
+  const employeeId = formData.get("employeeId") as string | null;
+  const employeeNumber = formData.get("employeeNumber") as string | null;
 
-  if (!employeeNumber || !birthdate) {
-    return { error: "社員番号と生年月日を入力してください" };
+  if (!employeeId && !employeeNumber) {
+    return { error: "社員を選択してください" };
   }
 
-  // Look up active employee by employee_number + birthdate
   const admin = createAdminClient();
-  const { data: emp, error: lookupError } = await admin
+  const lookup = admin
     .from("employees")
-    .select("id, employee_number, birthdate")
-    .eq("employee_number", employeeNumber)
-    .eq("birthdate", birthdate)
-    .eq("is_active", true)
-    .single();
+    .select("id, employee_number")
+    .eq("is_active", true);
+  const { data: emp, error: lookupError } = employeeId
+    ? await lookup.eq("id", employeeId).single()
+    : await lookup.eq("employee_number", employeeNumber!).single();
 
   if (lookupError || !emp) {
-    return { error: "社員番号または生年月日が正しくありません" };
+    return { error: "ログインできませんでした。管理者にお問い合わせください" };
   }
 
   // Sign in via Supabase Auth with deterministic credentials
   const email = `${emp.employee_number}@thanks-card.local`;
-  const password = `tc_${emp.birthdate}_${emp.employee_number}`;
+  const password = `tc_${emp.employee_number}`;
 
   const supabase = await createClient();
   const { error: signInError } = await supabase.auth.signInWithPassword({
@@ -154,6 +155,55 @@ export async function toggleReactionAction(
   revalidatePath("/");
   revalidatePath("/my");
   revalidatePath("/archive");
+  return {};
+}
+
+// --- Delete card ---
+
+export async function deleteCardAction(
+  cardId: string
+): Promise<{ error?: string }> {
+  if (!cardId) return { error: "カードIDが指定されていません" };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "ログインが必要です" };
+
+  const employeeId = user.app_metadata?.employee_id;
+  const isAdmin = Boolean(user.app_metadata?.is_admin);
+  if (!employeeId) return { error: "社員情報が見つかりません" };
+
+  // Fetch the card to verify ownership before delete
+  const { data: card, error: fetchErr } = await supabase
+    .from("thanks_cards")
+    .select("id, from_id")
+    .eq("id", cardId)
+    .single();
+
+  if (fetchErr || !card) {
+    return { error: "カードが見つかりません" };
+  }
+  if (card.from_id !== employeeId && !isAdmin) {
+    return { error: "このカードを削除する権限がありません" };
+  }
+
+  // Hard delete — card_categories / card_reactions / card_reads cascade via FK
+  const { error: delErr } = await supabase
+    .from("thanks_cards")
+    .delete()
+    .eq("id", cardId);
+
+  if (delErr) {
+    return { error: "カードの削除に失敗しました" };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/my");
+  revalidatePath("/archive");
+  revalidatePath("/ranking");
+  revalidatePath("/admin");
   return {};
 }
 

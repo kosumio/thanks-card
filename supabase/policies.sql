@@ -19,6 +19,8 @@ create policy "cards_insert" on thanks_cards for insert
   with check (from_id = current_employee_id());
 create policy "cards_update_picked" on thanks_cards for update
   using (is_current_admin());
+create policy "cards_delete" on thanks_cards for delete
+  using (from_id = current_employee_id() or is_current_admin());
 
 -- card_categories
 alter table card_categories enable row level security;

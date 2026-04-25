@@ -1,0 +1,246 @@
+[
+  {
+    "name": "香川知世",
+    "count": 4,
+    "samples": [
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "井島直子"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      }
+    ]
+  },
+  {
+    "name": "遠藤さゆり",
+    "count": 3,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "古瀬義法"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      },
+      {
+        "direction": "from",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "櫻田優子"
+      }
+    ]
+  },
+  {
+    "name": "安藤生吹",
+    "count": 2,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "古瀬義法"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "深澤みづき",
+    "count": 2,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      },
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "小栗輝彦"
+      }
+    ]
+  },
+  {
+    "name": "湯田和代",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋横浜/横浜支社管理課",
+        "other": "平野滋之"
+      }
+    ]
+  },
+  {
+    "name": "尾崎",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/0",
+        "other": "阿部綺花"
+      }
+    ]
+  },
+  {
+    "name": "杉原絵玲奈",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      }
+    ]
+  },
+  {
+    "name": "勝又玲子",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "エンイート/箱根ﾁｰﾃﾗ元箱根店",
+        "other": "梅田悠佳"
+      }
+    ]
+  },
+  {
+    "name": "気賀沢弘美",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "鮑屋本社/経理課",
+        "other": "仲野恭弘"
+      }
+    ]
+  },
+  {
+    "name": "小島晴子",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "梅田詩織",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "濱田みずほ",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "木下茉美",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "中村帆花",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "谷澤光子",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "鈴木友美子",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "榎本里桜",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "柏木のあ",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "ｱﾊﾞﾛﾝ六左衛門/六左衛門",
+        "other": "松本真実"
+      }
+    ]
+  },
+  {
+    "name": "窪田ネニータ",
+    "count": 1,
+    "samples": [
+      {
+        "direction": "to",
+        "rawLocation": "アバロン工場/製造課",
+        "other": "平岡真弓"
+      }
+    ]
+  }
+]
