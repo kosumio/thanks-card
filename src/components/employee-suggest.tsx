@@ -4,27 +4,40 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { Employee } from "@/lib/types";
 
 /**
- * Normalize a string for fuzzy name matching:
- *   - lower-case
- *   - strip all whitespace (regular + full-width)
- *   - fold variant kanji (岩﨑 -> 岩崎, 齋 -> 斎, 𠮷 -> 吉, 髙 -> 高)
- *   - fold half-width katakana to full-width
+ * Normalize a string for fuzzy 氏名 matching.
+ *   - NFKC fold (full/half-width digits, half-kana → full-kana, etc.)
+ *   - lower-case + strip whitespace (regular + full-width)
+ *   - fold common variant kanji used in Japanese personal names so that
+ *     齋藤 / 齊藤 / 斉藤 all match 斎藤, 渡邊 / 渡邉 → 渡辺,
+ *     髙橋 → 高橋, 﨑 → 崎, 𠮷 → 吉, 澤 → 沢, 濱 → 浜, etc.
  */
 function normalize(s: string): string {
   if (!s) return "";
-  let n = s.toLowerCase().replace(/[\s\u3000]/g, "");
-  // Variant kanji folding (common ones in this roster)
-  n = n
-    .replace(/﨑/g, "崎")
-    .replace(/齋/g, "斎")
-    .replace(/𠮷/g, "吉")
-    .replace(/髙/g, "高");
-  // Half-width katakana → full-width
-  n = n.replace(/[\uff61-\uff9f]/g, (ch) => {
-    const code = ch.charCodeAt(0);
-    // ｦ-ｯ (small kana) and others fall back via NFKC
-    return String.fromCharCode(code).normalize("NFKC");
-  });
+  let n = s.normalize("NFKC").toLowerCase().replace(/[\s　]/g, "");
+  const variants: Record<string, string> = {
+    "齋": "斎", // 齋 → 斎
+    "齊": "斎", // 齊 → 斎
+    "斉": "斎", // 斉 → 斎
+    "﨑": "崎", // 﨑 → 崎
+    "嵜": "崎", // 嵜 → 崎
+    "𠮷": "吉", // 𠮷 → 吉
+    "髙": "高", // 髙 → 高
+    "邊": "辺", // 邊 → 辺
+    "邉": "辺", // 邉 → 辺
+    "澤": "沢", // 澤 → 沢
+    "濱": "浜", // 濱 → 浜
+    "櫻": "桜", // 櫻 → 桜
+    "國": "国", // 國 → 国
+    "冨": "富", // 冨 → 富
+    "惠": "恵", // 惠 → 恵
+    "眞": "真", // 眞 → 真
+    "德": "徳", // 德 → 徳
+    "龍": "竜", // 龍 → 竜
+    "廣": "広", // 廣 → 広
+  };
+  for (const [from, to] of Object.entries(variants)) {
+    if (n.indexOf(from) !== -1) n = n.split(from).join(to);
+  }
   return n;
 }
 
