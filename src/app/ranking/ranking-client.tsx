@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Heart, Inbox, Send, Trophy } from "lucide-react";
+import { Heart, Inbox, Send, Trophy, Award } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
 import type { ThanksCard, Employee, CategoryInfo } from "@/lib/types";
 
-type RankingType = "received" | "sent" | "hearts";
+type RankingType = "received" | "sent" | "hearts" | "picked";
 
 interface PersonRank {
   id: string;
@@ -46,8 +46,11 @@ export default function RankingClient({
         counts[c.to.id] = (counts[c.to.id] || 0) + 1;
       } else if (type === "sent") {
         counts[c.from.id] = (counts[c.from.id] || 0) + 1;
-      } else {
+      } else if (type === "hearts") {
         counts[c.to.id] = (counts[c.to.id] || 0) + c.reactionCount;
+      } else {
+        // picked = 好事例（管理者/投票で is_picked=true となったカードの受信枚数）
+        if (c.isPicked) counts[c.to.id] = (counts[c.to.id] || 0) + 1;
       }
     });
 
@@ -91,10 +94,11 @@ export default function RankingClient({
     { key: "sent" as const, label: "贈った", icon: Send, unit: "枚" },
     {
       key: "hearts" as const,
-      label: "グッドサンクス",
+      label: "みんなで選ぶ\nグッドサンクス",
       icon: Heart,
       unit: "",
     },
+    { key: "picked" as const, label: "好事例", icon: Award, unit: "件" },
   ];
 
   const currentTab = tabs.find((t) => t.key === tab)!;
@@ -110,12 +114,12 @@ export default function RankingClient({
       </h2>
 
       {/* Tab */}
-      <div className="flex bg-[var(--color-warm-100)] rounded-xl p-1 mb-4">
+      <div className="flex bg-[var(--color-warm-100)] rounded-xl p-1 mb-4 gap-0.5">
         {tabs.map((t) => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`flex-1 flex items-center justify-center gap-1 py-2 rounded-lg text-xs font-medium transition-all ${
+            className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 rounded-lg text-[10px] leading-tight font-medium transition-all whitespace-pre-line text-center ${
               tab === t.key
                 ? "bg-white text-[var(--color-primary)] shadow-sm"
                 : "text-[var(--color-warm-500)]"
