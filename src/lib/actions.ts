@@ -220,7 +220,7 @@ export async function togglePickedAction(
     .update({ is_picked: isPicked })
     .eq("id", cardId);
 
-  if (error) return { error: "ピック状態の更新に失敗しました" };
+  if (error) return { error: "好事例の選定状態を更新できませんでした" };
 
   revalidatePath("/admin");
   revalidatePath("/archive");

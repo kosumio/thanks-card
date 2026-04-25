@@ -238,6 +238,16 @@ export default function RankingClient({
       </div>
 
       {/* My rank */}
+      {!myRank && currentUserId && (
+        <div className="mb-4 bg-[var(--color-warm-50)] rounded-2xl p-4 border border-[var(--color-warm-200)] text-center">
+          <p className="text-xs text-[var(--color-warm-500)]">
+            この期間ではまだランキング外です
+          </p>
+          <p className="text-[10px] text-[var(--color-warm-400)] mt-1">
+            一通カードを送るとランキングに登場します
+          </p>
+        </div>
+      )}
       {myRank && (
         <div className="mb-4 bg-gradient-to-r from-[var(--color-warm-50)] to-white rounded-2xl p-4 border border-[var(--color-primary)]/20">
           <p className="text-[10px] text-[var(--color-warm-500)] mb-1">
