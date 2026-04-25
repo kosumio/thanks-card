@@ -137,11 +137,32 @@ export default function SendFormClient({
     );
   }
 
+  // Total stats for the home banner
+  const totalCards = cards.length;
+  const totalEmployees = employees.length;
+  const totalPicked = cards.filter((c) => c.isPicked).length;
+
   return (
     <AuthGuard>
-      <h2 className="text-lg font-bold text-[var(--color-warm-800)] mb-6">
+      <h2 className="text-lg font-bold text-[var(--color-warm-800)] mb-3">
         サンクスカードを書く
       </h2>
+
+      {/* Stats banner */}
+      <div className="mb-4 grid grid-cols-3 gap-2">
+        <div className="bg-white rounded-xl p-2.5 border border-[var(--color-warm-100)] text-center">
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">累計カード</p>
+          <p className="text-base font-bold text-[var(--color-primary)]">{totalCards.toLocaleString()}</p>
+        </div>
+        <div className="bg-white rounded-xl p-2.5 border border-[var(--color-warm-100)] text-center">
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">登録メンバー</p>
+          <p className="text-base font-bold text-[var(--color-warm-700)]">{totalEmployees}</p>
+        </div>
+        <div className="bg-white rounded-xl p-2.5 border border-amber-100 text-center">
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">好事例</p>
+          <p className="text-base font-bold text-amber-600">{totalPicked}</p>
+        </div>
+      </div>
 
       <div className="space-y-5">
         {/* Quick suggest */}

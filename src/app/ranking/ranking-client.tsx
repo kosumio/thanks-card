@@ -21,6 +21,46 @@ interface RankingClientProps {
   currentUserId: string;
 }
 
+// --- Period filter ---
+type PeriodKey = string; // e.g. "all" / "fy2025" / "2026-03"
+
+interface PeriodOption {
+  key: PeriodKey;
+  label: string;
+  /** Inclusive UTC bounds (ms). null = unbounded */
+  start: number | null;
+  end: number | null;
+}
+
+function buildPeriods(cards: ThanksCard[]): PeriodOption[] {
+  const monthSet = new Set<string>();
+  for (const c of cards) {
+    monthSet.add(c.createdAt.slice(0, 7)); // YYYY-MM
+  }
+  const months = Array.from(monthSet).sort().reverse();
+  const opts: PeriodOption[] = [
+    { key: "all", label: "全期間", start: null, end: null },
+    {
+      key: "fy2025",
+      label: "FY2025（2025年4月〜2026年3月）",
+      start: Date.parse("2025-04-01T00:00:00+09:00"),
+      end: Date.parse("2026-04-01T00:00:00+09:00"),
+    },
+  ];
+  for (const m of months) {
+    const [y, mo] = m.split("-").map(Number);
+    const ny = mo === 12 ? y + 1 : y;
+    const nm = mo === 12 ? 1 : mo + 1;
+    opts.push({
+      key: m,
+      label: `${y}年${mo}月`,
+      start: Date.parse(`${m}-01T00:00:00+09:00`),
+      end: Date.parse(`${ny}-${String(nm).padStart(2, "0")}-01T00:00:00+09:00`),
+    });
+  }
+  return opts;
+}
+
 export default function RankingClient({
   cards,
   employees,
@@ -29,17 +69,30 @@ export default function RankingClient({
 }: RankingClientProps) {
   const [tab, setTab] = useState<RankingType>("received");
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
+  const [periodKey, setPeriodKey] = useState<PeriodKey>("fy2025");
+
+  const periods = useMemo(() => buildPeriods(cards), [cards]);
+  const currentPeriod = periods.find((p) => p.key === periodKey) ?? periods[0];
 
   function buildFullRanking(
     type: RankingType,
     catFilter?: string
   ): PersonRank[] {
     const counts: Record<string, number> = {};
-    const filtered = catFilter
-      ? cards.filter((c) =>
-          c.categories.some((cc) => cc.value === catFilter)
-        )
-      : cards;
+    let filtered = cards;
+    if (currentPeriod.start !== null) {
+      const s = currentPeriod.start;
+      filtered = filtered.filter((c) => Date.parse(c.createdAt) >= s);
+    }
+    if (currentPeriod.end !== null) {
+      const e = currentPeriod.end;
+      filtered = filtered.filter((c) => Date.parse(c.createdAt) < e);
+    }
+    if (catFilter) {
+      filtered = filtered.filter((c) =>
+        c.categories.some((cc) => cc.value === catFilter)
+      );
+    }
 
     filtered.forEach((c) => {
       if (type === "received") {
@@ -71,9 +124,9 @@ export default function RankingClient({
   const fullRanking = useMemo(
     () => buildFullRanking(tab, categoryFilter ?? undefined),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tab, categoryFilter, cards, employees]
+    [tab, categoryFilter, cards, employees, periodKey]
   );
-  const currentRanking = fullRanking.slice(0, 10);
+  const currentRanking = fullRanking.slice(0, 20);
 
   const myRank = useMemo(() => {
     const idx = fullRanking.findIndex((r) => r.id === currentUserId);
@@ -112,9 +165,27 @@ export default function RankingClient({
 
   return (
     <AuthGuard>
-      <h2 className="text-lg font-bold text-[var(--color-warm-800)] mb-4">
+      <h2 className="text-lg font-bold text-[var(--color-warm-800)] mb-3">
         ランキング
       </h2>
+
+      {/* Period selector */}
+      <div className="mb-3">
+        <label className="block text-[10px] text-[var(--color-warm-500)] mb-1">
+          集計期間
+        </label>
+        <select
+          value={periodKey}
+          onChange={(e) => setPeriodKey(e.target.value)}
+          className="w-full px-3 py-2 rounded-xl border border-[var(--color-warm-200)] bg-white text-sm text-[var(--color-warm-800)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)]"
+        >
+          {periods.map((p) => (
+            <option key={p.key} value={p.key}>
+              {p.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Tab */}
       <div className="flex bg-[var(--color-warm-100)] rounded-xl p-1 mb-4 gap-0.5">
@@ -207,7 +278,7 @@ export default function RankingClient({
       {/* Ranking list */}
       <h3 className="text-sm font-semibold text-[var(--color-warm-800)] mb-3 flex items-center gap-1.5">
         <Trophy className="w-4 h-4 text-amber-500" />
-        {rankingLabel} TOP10
+        {rankingLabel} TOP20
       </h3>
       <div className="space-y-2">
         {currentRanking.length === 0 && (
