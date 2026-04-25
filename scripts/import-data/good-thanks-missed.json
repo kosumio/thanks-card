@@ -1,0 +1,117 @@
+[
+  {
+    "row": 300,
+    "reason": "no card match",
+    "pick": {
+      "row": 300,
+      "to_company": "アバロン工場",
+      "to_dept": "製造課",
+      "to_name": "葛屋柚香",
+      "message": "製品充填中、1mmサイズの異物も見逃さず発見、報告してくださりありがとうございます！",
+      "from_company": "アバロン工場",
+      "from_dept": "製造課",
+      "from_name": "松嶋基",
+      "voters": [
+        "小田"
+      ],
+      "reason": "製造において大事なことだと思います。素晴らしいです。",
+      "vote_count": 1
+    }
+  },
+  {
+    "row": 346,
+    "reason": "name miss from=true to=false",
+    "pick": {
+      "row": 346,
+      "to_company": "アバロン工場",
+      "to_dept": null,
+      "to_name": "皆さま",
+      "message": "倉庫、駐車場の草取りありがとうございました。",
+      "from_company": "アバロン工場",
+      "from_dept": "製造課",
+      "from_name": "吉田栄作",
+      "voters": [
+        "松嶋"
+      ],
+      "reason": "共有スペースをキレイに保つことは、会社のイメージや皆のモチベーションアップにつながると思います。誰かがではなく皆でやることが素晴らしいです。",
+      "vote_count": 1
+    }
+  },
+  {
+    "row": 390,
+    "reason": "no card match",
+    "pick": {
+      "row": 390,
+      "to_company": "エンイート",
+      "to_dept": "箱根ﾁｰﾃﾗ板橋",
+      "to_name": "佐々木千奈美",
+      "message": "先日は元箱根店に勤務していただきありがとうございます。約1年ぶりに一緒に仕事をするということで、とても楽しく仕事ができました。ありがとうございます。",
+      "from_company": "エンイート",
+      "from_dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "from_name": "香川知世",
+      "voters": [
+        "緑川"
+      ],
+      "reason": "店舗はどうしても人員が不安定な中、工場メンバーのフォローありがたいです。",
+      "vote_count": 1
+    }
+  },
+  {
+    "row": 504,
+    "reason": "no card match",
+    "pick": {
+      "row": 504,
+      "to_company": "アバロン工場",
+      "to_dept": "製造課",
+      "to_name": "太田郁子",
+      "message": "わからないことをいつ聞いても、丁寧に答えてくださり、掃除も色々と一から教えていただいて感謝しています。\nいつもありがとうございます。",
+      "from_company": "アバロン工場",
+      "from_dept": "製造課",
+      "from_name": "葛屋柚香",
+      "voters": [
+        "吉田"
+      ],
+      "reason": "思いやりのある教育係けいぞくして欲しいです。",
+      "vote_count": 1
+    }
+  },
+  {
+    "row": 590,
+    "reason": "no card match",
+    "pick": {
+      "row": 590,
+      "to_company": "アバロン工場",
+      "to_dept": "製造課",
+      "to_name": "福田梨沙",
+      "message": "気づいたときに、充填機を洗っていただいたり、Aラインのお手伝いに来ていただいてありがとうございました。",
+      "from_company": "アバロン工場",
+      "from_dept": "製造課",
+      "from_name": "葛屋柚香",
+      "voters": [
+        "吉田"
+      ],
+      "reason": "周りが良く見えていて的確な判断、いつも助かります。",
+      "vote_count": 1
+    }
+  },
+  {
+    "row": 616,
+    "reason": "name miss from=true to=false",
+    "pick": {
+      "row": 616,
+      "to_company": null,
+      "to_dept": null,
+      "to_name": "崎次郎スタッフ",
+      "message": "ベルクの仕分けの時、においで、魚がよくないことに気付いてくれてありがとうございます。「作業」でなく「仕事」。その姿勢に敬意を！",
+      "from_company": "鮑屋本社",
+      "from_dept": "加工課",
+      "from_name": "秋山勇気",
+      "voters": [
+        "齋藤",
+        "坂上、吉田"
+      ],
+      "reason": "プロフェッショナルですね！\n意識と姿勢が素晴らしいです。",
+      "vote_count": 3
+    }
+  }
+]
