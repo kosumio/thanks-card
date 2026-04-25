@@ -25,6 +25,31 @@
     "message_length": 26
   },
   {
+    "line": 2,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "崎次郎",
+      "name": "土田健太"
+    },
+    "from_raw": {
+      "company": "鮑屋HD",
+      "dept": "営業推進部",
+      "name": "田口絵美"
+    },
+    "message": "コーンの重しを運ぶのを手伝っていただき、ありがとうございました！！！重かったのでとっても助かりました！",
+    "matched": {
+      "to": {
+        "id": "tmp-018",
+        "name": "土田健太"
+      },
+      "from": {
+        "id": "220201",
+        "name": "田口絵美"
+      }
+    },
+    "message_length": 51
+  },
+  {
     "line": 3,
     "to_raw": {
       "company": "鮑屋本社",
@@ -48,6 +73,31 @@
       }
     },
     "message_length": 50
+  },
+  {
+    "line": 4,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "0",
+      "name": "尾崎"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "休日の急な修理対応、ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-010",
+        "name": "尾崎"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 22
   },
   {
     "line": 5,
@@ -175,6 +225,81 @@
     "message_length": 47
   },
   {
+    "line": 10,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "太田栄"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "太田郁子"
+    },
+    "message": "冷凍庫内の商品移動を手伝っていただきありがとうございました。助かりました。",
+    "matched": {
+      "to": {
+        "id": "tmp-009",
+        "name": "太田栄"
+      },
+      "from": {
+        "id": "10059",
+        "name": "太田郁子"
+      }
+    },
+    "message_length": 37
+  },
+  {
+    "line": 11,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "0",
+      "name": "尾崎"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "添田言"
+    },
+    "message": "水道管のトラブル対応していただき、ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-010",
+        "name": "尾崎"
+      },
+      "from": {
+        "id": "10057",
+        "name": "添田　言"
+      }
+    },
+    "message_length": 29
+  },
+  {
+    "line": 12,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "太田栄"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "吉田栄作"
+    },
+    "message": "懇親会の幹事、段取り等、ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-009",
+        "name": "太田栄"
+      },
+      "from": {
+        "id": "10021",
+        "name": "吉田栄作"
+      }
+    },
+    "message_length": 24
+  },
+  {
     "line": 13,
     "to_raw": {
       "company": "アバロン工場",
@@ -223,6 +348,56 @@
       }
     },
     "message_length": 25
+  },
+  {
+    "line": 15,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "0",
+      "name": "尾崎"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "松嶋基"
+    },
+    "message": "トイレの水道の水が止まりきっていないことが稀にあり、困っていたので、相談したところ蛇口の位置を変えて止めやすいようにしてくれました。おかげで改善されています。ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-010",
+        "name": "尾崎"
+      },
+      "from": {
+        "id": "10044",
+        "name": "松嶋　基"
+      }
+    },
+    "message_length": 91
+  },
+  {
+    "line": 16,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "製造課",
+      "name": "太田栄"
+    },
+    "from_raw": {
+      "company": "アバロン工場",
+      "dept": "品質管理室",
+      "name": "本多真基"
+    },
+    "message": "ラック台車移動時の挟まれ防止について、現対応での不足を補う提案をいただき、ありがとうございます。いつもよく見ていただいています。",
+    "matched": {
+      "to": {
+        "id": "tmp-009",
+        "name": "太田栄"
+      },
+      "from": {
+        "id": "1250401",
+        "name": "本多真基"
+      }
+    },
+    "message_length": 64
   },
   {
     "line": 17,
@@ -325,6 +500,56 @@
     "message_length": 37
   },
   {
+    "line": 21,
+    "to_raw": {
+      "company": "アバロン工場",
+      "dept": "0",
+      "name": "渡辺瑞希"
+    },
+    "from_raw": {
+      "company": "ｱﾊﾞﾛﾝ六左衛門",
+      "dept": "六左衛門",
+      "name": "小栗輝彦"
+    },
+    "message": "いつも笑顔で仕事していただきありがとうございます。これからもよろしくお願いします。",
+    "matched": {
+      "to": {
+        "id": "tmp-025",
+        "name": "渡辺瑞希"
+      },
+      "from": {
+        "id": "1240901",
+        "name": "小栗輝彦"
+      }
+    },
+    "message_length": 41
+  },
+  {
+    "line": 22,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "忙しい中、通販ソフト作ってくれてホント助かりました！先読み、いつもありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 44
+  },
+  {
     "line": 23,
     "to_raw": {
       "company": "エンイート",
@@ -400,6 +625,31 @@
     "message_length": 50
   },
   {
+    "line": 26,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "杉原絵玲奈"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "テントのお掃除ありがとうございました！お日様に白が映えてきれいで気持ち良いです！",
+    "matched": {
+      "to": {
+        "id": "tmp-002",
+        "name": "杉原絵玲奈"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 40
+  },
+  {
     "line": 27,
     "to_raw": {
       "company": "鮑屋HD",
@@ -450,6 +700,206 @@
     "message_length": 45
   },
   {
+    "line": 29,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "勝又玲子"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "12月のシフト協力、ほぼフル出勤可で希望休なし？楽しく働いてもらえるように色々頑張ります！",
+    "matched": {
+      "to": {
+        "id": "tmp-003",
+        "name": "勝又玲子"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 45
+  },
+  {
+    "line": 30,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "留守中にソフトの原料発注をありがとう♡いつも抜けてしまうので、すっごく助かってます。",
+    "matched": {
+      "to": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 42
+  },
+  {
+    "line": 31,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "梅田悠佳"
+    },
+    "message": "いつもシフト代わっていただき、ありがとうございます。荷物の受け取りや補充なども気遣っていただき、私が気を使わなくても良いようにご連絡もいただけて、本当に助かっています！！",
+    "matched": {
+      "to": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      },
+      "from": {
+        "id": "240917",
+        "name": "梅田悠佳"
+      }
+    },
+    "message_length": 85
+  },
+  {
+    "line": 32,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "勝又玲子"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "梅田悠佳"
+    },
+    "message": "平日でお仕事も忙しいのに出勤してくださり、本当にありがとうございます！！！来て頂けただけで気持ち的にもラクになり、2日間本当に助かりました！！！",
+    "matched": {
+      "to": {
+        "id": "tmp-003",
+        "name": "勝又玲子"
+      },
+      "from": {
+        "id": "240917",
+        "name": "梅田悠佳"
+      }
+    },
+    "message_length": 72
+  },
+  {
+    "line": 33,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "message": "急なお休み申し訳ありませんでした。おかげ様で息子も回復し、元気に学校に行くことができました。",
+    "matched": {
+      "to": {
+        "id": "200802",
+        "name": "井島直子"
+      },
+      "from": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      }
+    },
+    "message_length": 46
+  },
+  {
+    "line": 34,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "勝又玲子"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "message": "急なお休みに対応していただき、ありがとうございました。梅田さんのワンオペにならずにすみました。本当にありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-003",
+        "name": "勝又玲子"
+      },
+      "from": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      }
+    },
+    "message_length": 62
+  },
+  {
+    "line": 35,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "梅田悠佳"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "message": "急なお休みすみませんでした。おかげさまで息子も回復し、元気に学校に行くことができました！！",
+    "matched": {
+      "to": {
+        "id": "240917",
+        "name": "梅田悠佳"
+      },
+      "from": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      }
+    },
+    "message_length": 45
+  },
+  {
+    "line": 36,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "勝又玲子"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "連休3日間、売上が高い中、ホントにありがとうございました！！疲れたけど楽しかったねw",
+    "matched": {
+      "to": {
+        "id": "tmp-003",
+        "name": "勝又玲子"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 42
+  },
+  {
     "line": 37,
     "to_raw": {
       "company": "エンイート",
@@ -473,6 +923,31 @@
       }
     },
     "message_length": 37
+  },
+  {
+    "line": 38,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "井島直子"
+    },
+    "message": "留守中、お店のことありがとうございました。安心してまた旅行に行けますw",
+    "matched": {
+      "to": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      },
+      "from": {
+        "id": "200802",
+        "name": "井島直子"
+      }
+    },
+    "message_length": 35
   },
   {
     "line": 39,
@@ -516,6 +991,31 @@
       "to": {
         "id": "10104",
         "name": "上野裕士"
+      },
+      "from": {
+        "id": "10052",
+        "name": "長谷川弓恵"
+      }
+    },
+    "message_length": 28
+  },
+  {
+    "line": 41,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業管理課",
+      "name": "稲見悦央"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "長谷川弓恵"
+    },
+    "message": "紙ごみ出すのをお手伝いいただき、ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "tmp-019",
+        "name": "稲見悦央"
       },
       "from": {
         "id": "10052",
@@ -600,6 +1100,56 @@
     "message_length": 48
   },
   {
+    "line": 45,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "0",
+      "name": "向山"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "小田悠平"
+    },
+    "message": "慣れない作業や新しいことなど覚えることが多い中、色々な人に聞いてほぼほぼミスなくやってくれてありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "tmp-032",
+        "name": "向山"
+      },
+      "from": {
+        "id": "10058",
+        "name": "小田悠平"
+      }
+    },
+    "message_length": 57
+  },
+  {
+    "line": 46,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "営業管理課",
+      "name": "稲見悦央"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "商品管理課",
+      "name": "小田悠平"
+    },
+    "message": "担当しているお客様に出している商品の入数に気付いて対処できていました。引き続きお願いします。",
+    "matched": {
+      "to": {
+        "id": "tmp-019",
+        "name": "稲見悦央"
+      },
+      "from": {
+        "id": "10058",
+        "name": "小田悠平"
+      }
+    },
+    "message_length": 46
+  },
+  {
     "line": 47,
     "to_raw": {
       "company": "鮑屋本社",
@@ -648,6 +1198,31 @@
       }
     },
     "message_length": 33
+  },
+  {
+    "line": 49,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "ナイン エー"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "秋山勇気"
+    },
+    "message": "（他部署の）崎次郎openから2日間手伝っていただき、ありがとうございます。とても感謝してます。",
+    "matched": {
+      "to": {
+        "id": "tmp-005",
+        "name": "ナイン エー"
+      },
+      "from": {
+        "id": "10082",
+        "name": "秋山勇気"
+      }
+    },
+    "message_length": 48
   },
   {
     "line": 50,
@@ -850,6 +1425,31 @@
     "message_length": 44
   },
   {
+    "line": 58,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "鮮魚課",
+      "name": "岩本新二"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "瀬戸誠司"
+    },
+    "message": "いつも作業アドバイスありがとう！！",
+    "matched": {
+      "to": {
+        "id": "tmp-015",
+        "name": "岩本新二"
+      },
+      "from": {
+        "id": "10073",
+        "name": "瀬戸誠司"
+      }
+    },
+    "message_length": 17
+  },
+  {
     "line": 59,
     "to_raw": {
       "company": "鮑屋本社",
@@ -898,6 +1498,106 @@
       }
     },
     "message_length": 20
+  },
+  {
+    "line": 61,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "鮮魚課",
+      "name": "中村日道"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "ナイン エー"
+    },
+    "message": "中村さんが私に仕事でわからないことを教えてくれますから、ありがとうございました。",
+    "matched": {
+      "to": {
+        "id": "10098",
+        "name": "中村日道"
+      },
+      "from": {
+        "id": "tmp-005",
+        "name": "ナイン エー"
+      }
+    },
+    "message_length": 40
+  },
+  {
+    "line": 62,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "外食課",
+      "name": "庄司達也"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "ナイン エー"
+    },
+    "message": "庄司さんが私にタチウオを早く切る方法を教えてくれますから、本当にありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10040",
+        "name": "庄司達也"
+      },
+      "from": {
+        "id": "tmp-005",
+        "name": "ナイン エー"
+      }
+    },
+    "message_length": 43
+  },
+  {
+    "line": 63,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "秋山勇気"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "タン ジン アゥン"
+    },
+    "message": "私は箱を持ち上げた時に手が滑ってしまいました。箱が割れて魚が飛び出してしまいました。その時に秋山さんが助けてくれましたから、本当にありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10082",
+        "name": "秋山勇気"
+      },
+      "from": {
+        "id": "tmp-007",
+        "name": "タン ジン アゥン"
+      }
+    },
+    "message_length": 76
+  },
+  {
+    "line": 64,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "鮮魚課",
+      "name": "中村日道"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "タン ジン アゥン"
+    },
+    "message": "私が箱を片付けている時、中村さんが手伝ってくれました。手伝ってくれて本当にありがとうございます。",
+    "matched": {
+      "to": {
+        "id": "10098",
+        "name": "中村日道"
+      },
+      "from": {
+        "id": "tmp-007",
+        "name": "タン ジン アゥン"
+      }
+    },
+    "message_length": 48
   },
   {
     "line": 65,
@@ -1050,6 +1750,31 @@
     "message_length": 61
   },
   {
+    "line": 71,
+    "to_raw": {
+      "company": "鮑屋本社",
+      "dept": "加工課",
+      "name": "ナイン エー"
+    },
+    "from_raw": {
+      "company": "鮑屋本社",
+      "dept": "物流課",
+      "name": "瀬戸誠司"
+    },
+    "message": "営業第二部ルームを作る作業を手伝ってくれてありがとう！！",
+    "matched": {
+      "to": {
+        "id": "tmp-005",
+        "name": "ナイン エー"
+      },
+      "from": {
+        "id": "10073",
+        "name": "瀬戸誠司"
+      }
+    },
+    "message_length": 28
+  },
+  {
     "line": 72,
     "to_raw": {
       "company": "鮑屋HD",
@@ -1098,5 +1823,30 @@
       }
     },
     "message_length": 35
+  },
+  {
+    "line": 74,
+    "to_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "梅田悠佳"
+    },
+    "from_raw": {
+      "company": "エンイート",
+      "dept": "箱根ﾁｰﾃﾗ元箱根店",
+      "name": "香川知世"
+    },
+    "message": "ソフトの洗浄ありがとうございます。とても助かりました。",
+    "matched": {
+      "to": {
+        "id": "240917",
+        "name": "梅田悠佳"
+      },
+      "from": {
+        "id": "tmp-001",
+        "name": "香川知世"
+      }
+    },
+    "message_length": 27
   }
 ]
