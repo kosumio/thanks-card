@@ -49,8 +49,11 @@ export default function RankingClient({
       } else if (type === "hearts") {
         counts[c.to.id] = (counts[c.to.id] || 0) + c.reactionCount;
       } else {
-        // picked = 好事例（管理者/投票で is_picked=true となったカードの受信枚数）
-        if (c.isPicked) counts[c.to.id] = (counts[c.to.id] || 0) + 1;
+        // picked = 好事例（送信側・受信側それぞれに 1 加算）
+        if (c.isPicked) {
+          counts[c.to.id] = (counts[c.to.id] || 0) + 1;
+          counts[c.from.id] = (counts[c.from.id] || 0) + 1;
+        }
       }
     });
 
