@@ -70,9 +70,11 @@ export default function LoginPage({ employees }: LoginPageProps) {
                 }}
                 placeholder="名前またはふりがなを入力"
               />
-              <p className="text-[10px] text-[var(--color-warm-400)] mt-1.5">
-                入力すると候補が表示されます。所属で見分けてご自身の名前を選んでください。
-              </p>
+              <ul className="text-[10px] text-[var(--color-warm-400)] mt-1.5 space-y-0.5 leading-relaxed">
+                <li>・ 漢字 / ひらがな / 従業員番号、どれでも検索できます</li>
+                <li>・ 異体字（齋 / 齊 / 斉 など）や全角空白の有無は気にしなくてOK</li>
+                <li>・ 同姓同名がいるときは <span className="text-[var(--color-warm-600)] font-medium">所属</span> で見分けて選んでください</li>
+              </ul>
             </div>
 
             {/* Error message */}
