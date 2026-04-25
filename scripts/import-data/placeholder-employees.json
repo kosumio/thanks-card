@@ -75,7 +75,7 @@
     "employee_number": "tmp-010",
     "name": "尾崎",
     "name_kana": "",
-    "location": "アバロン工場",
+    "location": "",
     "birthdate": "1900-01-01",
     "is_admin": false
   },
@@ -83,7 +83,7 @@
     "employee_number": "tmp-011",
     "name": "葛谷柚香",
     "name_kana": "",
-    "location": "アバロン工場",
+    "location": "",
     "birthdate": "1900-01-01",
     "is_admin": false
   },
@@ -187,7 +187,7 @@
     "employee_number": "tmp-024",
     "name": "ニッツ",
     "name_kana": "",
-    "location": "アバロン工場",
+    "location": "",
     "birthdate": "1900-01-01",
     "is_admin": false
   },
@@ -195,7 +195,7 @@
     "employee_number": "tmp-025",
     "name": "渡辺瑞希",
     "name_kana": "",
-    "location": "アバロン工場",
+    "location": "",
     "birthdate": "1900-01-01",
     "is_admin": false
   },
@@ -251,7 +251,7 @@
     "employee_number": "tmp-032",
     "name": "向山",
     "name_kana": "",
-    "location": "鮑屋本社",
+    "location": "",
     "birthdate": "1900-01-01",
     "is_admin": false
   },
