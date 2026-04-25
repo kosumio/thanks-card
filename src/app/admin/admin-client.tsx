@@ -81,7 +81,12 @@ export default function AdminClient({
       (c) => c.from.location !== c.to.location
     ).length;
 
-    const pickedCards = cards.filter((c) => c.isPicked);
+    const pickedCards = cards
+      .filter((c) => c.isPicked)
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
 
     const involvedIds = new Set([
       ...cards.map((c) => c.from.id),
