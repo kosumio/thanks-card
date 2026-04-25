@@ -9,23 +9,26 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export async function loginAction(
   formData: FormData
 ): Promise<{ error?: string }> {
-  const employeeNumber = formData.get("employeeNumber") as string;
+  // Primary path: name-based login provides employeeId (uuid).
+  // Fallback path: employeeNumber (kept for compatibility / API callers).
+  const employeeId = formData.get("employeeId") as string | null;
+  const employeeNumber = formData.get("employeeNumber") as string | null;
 
-  if (!employeeNumber) {
-    return { error: "社員番号を入力してください" };
+  if (!employeeId && !employeeNumber) {
+    return { error: "社員を選択してください" };
   }
 
-  // Look up active employee by employee_number
   const admin = createAdminClient();
-  const { data: emp, error: lookupError } = await admin
+  const lookup = admin
     .from("employees")
     .select("id, employee_number")
-    .eq("employee_number", employeeNumber)
-    .eq("is_active", true)
-    .single();
+    .eq("is_active", true);
+  const { data: emp, error: lookupError } = employeeId
+    ? await lookup.eq("id", employeeId).single()
+    : await lookup.eq("employee_number", employeeNumber!).single();
 
   if (lookupError || !emp) {
-    return { error: "社員番号が正しくありません" };
+    return { error: "ログインできませんでした。管理者にお問い合わせください" };
   }
 
   // Sign in via Supabase Auth with deterministic credentials

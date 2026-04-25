@@ -5,22 +5,28 @@ import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { loginAction } from "@/lib/actions";
+import EmployeeSuggest from "@/components/employee-suggest";
+import type { Employee } from "@/lib/types";
 
-export default function LoginPage() {
+interface LoginPageProps {
+  employees: Employee[];
+}
+
+export default function LoginPage({ employees }: LoginPageProps) {
   const router = useRouter();
   const { refreshUser } = useAuth();
-  const [employeeNumber, setEmployeeNumber] = useState("");
+  const [selected, setSelected] = useState<Employee | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  const canSubmit = employeeNumber.trim() && !isPending;
+  const canSubmit = !!selected && !isPending;
 
   const handleLogin = () => {
-    if (!canSubmit) return;
+    if (!canSubmit || !selected) return;
     setError(null);
     startTransition(async () => {
       const formData = new FormData();
-      formData.set("employeeNumber", employeeNumber.trim());
+      formData.set("employeeId", selected.id);
       const result = await loginAction(formData);
       if (result.error) {
         setError(result.error);
@@ -51,27 +57,21 @@ export default function LoginPage() {
         {/* Login form */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-[var(--color-warm-100)]">
           <div className="space-y-4">
-            {/* Employee number */}
             <div>
               <label className="block text-sm font-medium text-[var(--color-warm-700)] mb-1.5">
-                従業員番号
+                お名前
               </label>
-              <input
-                type="text"
-                value={employeeNumber}
-                onChange={(e) => {
-                  setEmployeeNumber(e.target.value);
+              <EmployeeSuggest
+                employees={employees}
+                value={selected}
+                onChange={(emp) => {
+                  setSelected(emp);
                   setError(null);
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleLogin();
-                }}
-                placeholder="例: 10020"
-                className="w-full px-4 py-3 rounded-xl border border-[var(--color-warm-200)] bg-[var(--color-warm-50)] text-[var(--color-warm-800)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors placeholder:text-[var(--color-warm-300)]"
-                autoFocus
+                placeholder="名前またはふりがなを入力"
               />
               <p className="text-[10px] text-[var(--color-warm-400)] mt-1.5">
-                従業員番号でログインします
+                入力すると候補が表示されます。所属で見分けてご自身の名前を選んでください。
               </p>
             </div>
 

@@ -3,6 +3,31 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Employee } from "@/lib/types";
 
+/**
+ * Normalize a string for fuzzy name matching:
+ *   - lower-case
+ *   - strip all whitespace (regular + full-width)
+ *   - fold variant kanji (岩﨑 -> 岩崎, 齋 -> 斎, 𠮷 -> 吉, 髙 -> 高)
+ *   - fold half-width katakana to full-width
+ */
+function normalize(s: string): string {
+  if (!s) return "";
+  let n = s.toLowerCase().replace(/[\s\u3000]/g, "");
+  // Variant kanji folding (common ones in this roster)
+  n = n
+    .replace(/﨑/g, "崎")
+    .replace(/齋/g, "斎")
+    .replace(/𠮷/g, "吉")
+    .replace(/髙/g, "高");
+  // Half-width katakana → full-width
+  n = n.replace(/[\uff61-\uff9f]/g, (ch) => {
+    const code = ch.charCodeAt(0);
+    // ｦ-ｯ (small kana) and others fall back via NFKC
+    return String.fromCharCode(code).normalize("NFKC");
+  });
+  return n;
+}
+
 interface EmployeeSuggestProps {
   employees: Employee[];
   excludeId?: string;
@@ -36,14 +61,14 @@ export default function EmployeeSuggest({
   }, []);
 
   const suggestions = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalize(query);
     if (!q) return [];
     return employees.filter((e) => {
       if (excludeId && e.id === excludeId) return false;
       return (
-        e.name.toLowerCase().includes(q) ||
-        e.nameKana.toLowerCase().includes(q) ||
-        e.employeeNumber.includes(q)
+        normalize(e.name).includes(q) ||
+        normalize(e.nameKana).includes(q) ||
+        e.employeeNumber.toLowerCase().includes(q)
       );
     });
   }, [query, employees, excludeId]);
