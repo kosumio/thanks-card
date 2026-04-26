@@ -7,22 +7,40 @@ import CardItem from "@/components/card-item";
 import { useAuth } from "@/lib/auth-context";
 import { markAsReadAction, deleteCardAction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
-import type { ThanksCard, CategoryInfo } from "@/lib/types";
+import type { ThanksCard } from "@/lib/types";
 
 type Tab = "received" | "sent";
+
+// バッジ獲得の最低件数。これ未満のスコアはランキング対象外。
+const BADGE_MIN_THRESHOLD = 3;
 
 interface MyPageClientProps {
   received: ThanksCard[];
   sent: ThanksCard[];
   readCardIds: string[];
-  categories: CategoryInfo[];
+  /** 全社員の全カード（バッジ集計用） */
+  allCards: ThanksCard[];
+  totalEmployees: number;
 }
+
+interface Badge {
+  monthLabel: string;
+  rank: 1 | 2 | 3;
+  type: "hearts" | "received" | "sent";
+  myCount: number;
+}
+
+const TYPE_LABEL: Record<Badge["type"], string> = {
+  hearts: "注目度",
+  received: "もらった数",
+  sent: "贈った数",
+};
 
 export default function MyPageClient({
   received,
   sent,
   readCardIds,
-  categories,
+  allCards,
 }: MyPageClientProps) {
   const { currentUser } = useAuth();
   const router = useRouter();
@@ -54,20 +72,7 @@ export default function MyPageClient({
 
   const cards = tab === "received" ? received : sent;
 
-  // Monthly badges
-  interface Badge {
-    label: string;
-    rank: number;
-    type: "hearts" | "received" | "sent";
-    category?: string;
-  }
-
-  const allCards = useMemo(
-    () => [...received, ...sent],
-    [received, sent]
-  );
-
-  const badges = useMemo((): Badge[] => {
+  const badges = useMemo<Badge[]>(() => {
     if (!currentUser) return [];
     const result: Badge[] = [];
 
@@ -79,107 +84,86 @@ export default function MyPageClient({
       monthMap.get(key)!.push(c);
     });
 
-    function checkRanking(
-      cards: ThanksCard[],
-      monthLabel: string,
-      categoryLabel?: string
-    ) {
-      const prefix = categoryLabel
-        ? `${monthLabel} ${categoryLabel}`
-        : monthLabel;
-
-      // Hearts
-      const heartsByPerson: Record<string, number> = {};
-      cards.forEach((c) => {
-        heartsByPerson[c.to.id] =
-          (heartsByPerson[c.to.id] || 0) + c.reactionCount;
-      });
-      const heartRanking = Object.entries(heartsByPerson)
-        .filter(([, v]) => v > 0)
-        .sort((a, b) => b[1] - a[1]);
-      const heartRank = heartRanking.findIndex(
-        ([id]) => id === currentUser!.id
+    function getRank(scores: Record<string, number>): 1 | 2 | 3 | null {
+      const myScore = scores[currentUser!.id] || 0;
+      if (myScore < BADGE_MIN_THRESHOLD) return null;
+      // 上位ユニーク値（降順、重複除外）の中で自分の位置を求める
+      const uniqueDesc = Array.from(
+        new Set(
+          Object.values(scores)
+            .filter((v) => v >= BADGE_MIN_THRESHOLD)
+            .sort((a, b) => b - a)
+        )
       );
-      if (heartRank >= 0 && heartRank < 3) {
-        result.push({
-          label: `${prefix} 注目度`,
-          rank: heartRank + 1,
-          type: "hearts",
-          category: categoryLabel,
-        });
-      }
-
-      // Received
-      const recvByPerson: Record<string, number> = {};
-      cards.forEach((c) => {
-        recvByPerson[c.to.id] = (recvByPerson[c.to.id] || 0) + 1;
-      });
-      const recvRanking = Object.entries(recvByPerson).sort(
-        (a, b) => b[1] - a[1]
-      );
-      const recvRank = recvRanking.findIndex(
-        ([id]) => id === currentUser!.id
-      );
-      if (recvRank >= 0 && recvRank < 3) {
-        result.push({
-          label: `${prefix} もらった数`,
-          rank: recvRank + 1,
-          type: "received",
-          category: categoryLabel,
-        });
-      }
-
-      // Sent
-      const sentByPerson: Record<string, number> = {};
-      cards.forEach((c) => {
-        sentByPerson[c.from.id] = (sentByPerson[c.from.id] || 0) + 1;
-      });
-      const sentRanking = Object.entries(sentByPerson).sort(
-        (a, b) => b[1] - a[1]
-      );
-      const sentRank = sentRanking.findIndex(
-        ([id]) => id === currentUser!.id
-      );
-      if (sentRank >= 0 && sentRank < 3) {
-        result.push({
-          label: `${prefix} 贈った数`,
-          rank: sentRank + 1,
-          type: "sent",
-          category: categoryLabel,
-        });
-      }
+      const idx = uniqueDesc.indexOf(myScore);
+      if (idx < 0 || idx > 2) return null;
+      return (idx + 1) as 1 | 2 | 3;
     }
 
     monthMap.forEach((monthCards, key) => {
-      const [, month] = key.split("-").map(Number);
-      const monthLabel = `${month}月`;
+      const [year, month] = key.split("-").map(Number);
+      const monthLabel = `${year}年${month}月`;
 
-      checkRanking(monthCards, monthLabel);
-
-      categories.forEach((cat) => {
-        const catCards = monthCards.filter((c) =>
-          c.categories.some((cc) => cc.value === cat.value)
-        );
-        if (catCards.length > 0) {
-          checkRanking(catCards, monthLabel, `${cat.icon}${cat.value}`);
-        }
+      const heartScores: Record<string, number> = {};
+      const recvScores: Record<string, number> = {};
+      const sentScores: Record<string, number> = {};
+      monthCards.forEach((c) => {
+        heartScores[c.to.id] = (heartScores[c.to.id] || 0) + c.reactionCount;
+        recvScores[c.to.id] = (recvScores[c.to.id] || 0) + 1;
+        sentScores[c.from.id] = (sentScores[c.from.id] || 0) + 1;
       });
+
+      const hRank = getRank(heartScores);
+      if (hRank) {
+        result.push({
+          monthLabel,
+          rank: hRank,
+          type: "hearts",
+          myCount: heartScores[currentUser.id] || 0,
+        });
+      }
+      const rRank = getRank(recvScores);
+      if (rRank) {
+        result.push({
+          monthLabel,
+          rank: rRank,
+          type: "received",
+          myCount: recvScores[currentUser.id] || 0,
+        });
+      }
+      const sRank = getRank(sentScores);
+      if (sRank) {
+        result.push({
+          monthLabel,
+          rank: sRank,
+          type: "sent",
+          myCount: sentScores[currentUser.id] || 0,
+        });
+      }
     });
 
+    // 新しい月から、同月内は順位昇順
     return result.sort((a, b) => {
-      if (!a.category && b.category) return -1;
-      if (a.category && !b.category) return 1;
+      if (a.monthLabel !== b.monthLabel) {
+        return a.monthLabel < b.monthLabel ? 1 : -1;
+      }
       return a.rank - b.rank;
     });
-  }, [currentUser, allCards, categories]);
+  }, [currentUser, allCards]);
 
-  const badgeColor = (rank: number) => {
-    if (rank === 1) return "from-yellow-400 to-amber-500 text-white";
-    if (rank === 2) return "from-gray-300 to-gray-400 text-white";
-    return "from-amber-500 to-amber-700 text-white";
+  const medalGradient = (rank: number) => {
+    if (rank === 1) return "from-yellow-300 via-yellow-400 to-amber-500";
+    if (rank === 2) return "from-gray-200 via-gray-300 to-gray-400";
+    return "from-amber-400 via-amber-500 to-amber-700";
   };
 
-  const badgeIcon = (type: Badge["type"]) => {
+  const medalRing = (rank: number) => {
+    if (rank === 1) return "ring-yellow-200";
+    if (rank === 2) return "ring-gray-200";
+    return "ring-amber-200";
+  };
+
+  const typeIcon = (type: Badge["type"]) => {
     if (type === "hearts")
       return <Heart className="w-3 h-3" fill="currentColor" />;
     if (type === "received") return <Inbox className="w-3 h-3" />;
@@ -203,6 +187,9 @@ export default function MyPageClient({
           <p className="text-xs text-[var(--color-warm-500)] mt-0.5">
             もらったカード
           </p>
+          <p className="text-[9px] text-[var(--color-warm-400)] mt-0.5">
+            2025年4月～累計
+          </p>
         </div>
         <div className="bg-white rounded-2xl p-4 border border-[var(--color-warm-100)] text-center">
           <p className="text-2xl font-bold text-[var(--color-warm-700)]">
@@ -211,25 +198,42 @@ export default function MyPageClient({
           <p className="text-xs text-[var(--color-warm-500)] mt-0.5">
             贈ったカード
           </p>
+          <p className="text-[9px] text-[var(--color-warm-400)] mt-0.5">
+            2025年4月～累計
+          </p>
         </div>
       </div>
 
       {/* Badges */}
       {badges.length > 0 && (
         <div className="mb-5">
-          <h3 className="text-xs font-medium text-[var(--color-warm-500)] mb-2 flex items-center gap-1">
+          <h3 className="text-xs font-medium text-[var(--color-warm-500)] mb-3 flex items-center gap-1">
             <Trophy className="w-3.5 h-3.5 text-amber-500" />
             あなたの獲得バッジ
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
             {badges.map((b, i) => (
               <div
                 key={i}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${badgeColor(b.rank)} text-xs font-semibold shadow-sm`}
+                className="flex flex-col items-center text-center"
+                title={`${b.monthLabel} ${TYPE_LABEL[b.type]} ${b.rank}位（${b.myCount}）`}
               >
-                {badgeIcon(b.type)}
-                <span>{b.label}</span>
-                <span className="opacity-80">第{b.rank}位</span>
+                <div
+                  className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${medalGradient(b.rank)} ring-2 ${medalRing(b.rank)} shadow-md flex items-center justify-center`}
+                >
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white text-[8px] font-bold text-[var(--color-warm-700)] flex items-center justify-center shadow-sm">
+                    {b.rank}
+                  </span>
+                  <span className="text-white drop-shadow">
+                    {typeIcon(b.type)}
+                  </span>
+                </div>
+                <p className="mt-1.5 text-[10px] font-semibold text-[var(--color-warm-700)] leading-tight">
+                  {TYPE_LABEL[b.type]}
+                </p>
+                <p className="text-[9px] text-[var(--color-warm-400)] leading-tight">
+                  {b.monthLabel}
+                </p>
               </div>
             ))}
           </div>

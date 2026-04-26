@@ -9,16 +9,6 @@ export interface DbEmployee {
   created_at: string;
 }
 
-export interface DbCategory {
-  id: string;
-  value: string;
-  display_order: number;
-  color_class: string | null;
-  bg_class: string | null;
-  icon: string | null;
-  is_active: boolean;
-}
-
 export interface DbThanksCard {
   id: string;
   from_id: string;
@@ -26,11 +16,6 @@ export interface DbThanksCard {
   message: string;
   is_picked: boolean;
   created_at: string;
-}
-
-export interface DbCardCategory {
-  card_id: string;
-  category_id: string;
 }
 
 export interface DbCardReaction {

@@ -6,23 +6,23 @@ import AuthGuard from "@/components/auth-guard";
 import EmployeeSuggest from "@/components/employee-suggest";
 import { useAuth } from "@/lib/auth-context";
 import { sendCardAction } from "@/lib/actions";
-import type { Employee, CategoryInfo, ThanksCard } from "@/lib/types";
+import type { Employee, ThanksCard } from "@/lib/types";
 import { MAX_MESSAGE_LENGTH } from "@/lib/types";
+
+const MESSAGE_PLACEHOLDER =
+  "例：先日の○○の件、忙しい中フォローしてくれて本当に助かりました。おかげでお客様にも安心していただけました。";
 
 interface SendFormClientProps {
   employees: Employee[];
-  categories: CategoryInfo[];
   cards: ThanksCard[];
 }
 
 export default function SendFormClient({
   employees,
-  categories,
   cards,
 }: SendFormClientProps) {
   const { currentUser } = useAuth();
   const [toEmployee, setToEmployee] = useState<Employee | null>(null);
-  const [selectedCategories, setSelectedCategories] = useState<CategoryInfo[]>([]);
   const [message, setMessage] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -68,18 +68,7 @@ export default function SendFormClient({
   }, [currentUser, cards, employees]);
 
   const canSubmit =
-    toEmployee &&
-    selectedCategories.length > 0 &&
-    message.trim().length > 0 &&
-    !isPending;
-
-  const toggleCategory = (cat: CategoryInfo) => {
-    setSelectedCategories((prev) =>
-      prev.some((c) => c.id === cat.id)
-        ? prev.filter((c) => c.id !== cat.id)
-        : [...prev, cat]
-    );
-  };
+    toEmployee && message.trim().length > 0 && !isPending;
 
   const handleMessageChange = (text: string) => {
     if (text.length <= MAX_MESSAGE_LENGTH) {
@@ -101,9 +90,6 @@ export default function SendFormClient({
       const formData = new FormData();
       formData.set("toId", toEmployee.id);
       formData.set("message", message);
-      selectedCategories.forEach((cat) => {
-        formData.append("categoryIds", cat.id);
-      });
       const result = await sendCardAction(formData);
       if (result.error) {
         setError(result.error);
@@ -112,7 +98,6 @@ export default function SendFormClient({
         setTimeout(() => {
           setSubmitted(false);
           setToEmployee(null);
-          setSelectedCategories([]);
           setMessage("");
         }, 2500);
       }
@@ -151,15 +136,27 @@ export default function SendFormClient({
       {/* Stats banner */}
       <div className="mb-4 grid grid-cols-3 gap-2">
         <div className="bg-white rounded-xl p-2.5 border border-[var(--color-warm-100)] text-center">
-          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">累計カード</p>
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5 leading-tight">
+            2025年4月～
+            <br />
+            累計カード
+          </p>
           <p className="text-base font-bold text-[var(--color-primary)]">{totalCards.toLocaleString()}</p>
         </div>
         <div className="bg-white rounded-xl p-2.5 border border-[var(--color-warm-100)] text-center">
-          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">登録メンバー</p>
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5 leading-tight">
+            送受信可能な
+            <br />
+            人数
+          </p>
           <p className="text-base font-bold text-[var(--color-warm-700)]">{totalEmployees}</p>
         </div>
         <div className="bg-white rounded-xl p-2.5 border border-amber-100 text-center">
-          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5">好事例</p>
+          <p className="text-[9px] text-[var(--color-warm-500)] mb-0.5 leading-tight">
+            2025年4月～
+            <br />
+            累計好事例
+          </p>
           <p className="text-base font-bold text-amber-600">{totalPicked}</p>
         </div>
       </div>
@@ -228,33 +225,6 @@ export default function SendFormClient({
           />
         </div>
 
-        {/* Category - multiple select */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--color-warm-700)] mb-2">
-            カテゴリ（複数選択可）
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => {
-              const isSelected = selectedCategories.some(
-                (c) => c.id === cat.id
-              );
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => toggleCategory(cat)}
-                  className={`text-xs px-3.5 py-2 rounded-xl font-medium transition-all ${
-                    isSelected
-                      ? `${cat.bgClass} ${cat.colorClass} ring-2 ring-current shadow-sm`
-                      : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
-                  }`}
-                >
-                  {cat.icon} {cat.value}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         {/* Message with char limit */}
         <div>
           <label className="block text-sm font-medium text-[var(--color-warm-700)] mb-1.5">
@@ -263,7 +233,7 @@ export default function SendFormClient({
           <textarea
             value={message}
             onChange={(e) => handleMessageChange(e.target.value)}
-            placeholder="感謝のメッセージを書いてください..."
+            placeholder={MESSAGE_PLACEHOLDER}
             rows={4}
             className="w-full px-4 py-3 rounded-xl border border-[var(--color-warm-200)] bg-white text-[var(--color-warm-800)] text-sm placeholder:text-[var(--color-warm-300)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors resize-none"
           />
@@ -315,16 +285,6 @@ export default function SendFormClient({
               <p className="text-xs text-[var(--color-warm-500)] mt-0.5">
                 {toEmployee.location}
               </p>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {selectedCategories.map((cat) => (
-                  <span
-                    key={cat.id}
-                    className={`text-[10px] px-2 py-0.5 rounded-full ${cat.bgClass} ${cat.colorClass}`}
-                  >
-                    {cat.value}
-                  </span>
-                ))}
-              </div>
               <p className="text-sm text-[var(--color-warm-700)] mt-3 leading-relaxed">
                 {message}
               </p>
