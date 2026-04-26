@@ -1,0 +1,31 @@
+name: Supabase keep-alive
+
+# Supabase Free tier は 7 日間アクセスがないと DB が自動 pause する。
+# 3 日ごとに REST API を叩いて活動状態を維持する（2026-04-24 自動 pause 再発防止）。
+
+on:
+  schedule:
+    - cron: '0 9 */3 * *'  # 3 日ごと UTC 09:00 (JST 18:00) 実行
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          response=$(curl -fsS -w "\nHTTP_STATUS:%{http_code}" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            "${SUPABASE_URL}/rest/v1/employees?select=id&limit=1")
+          echo "${response}"
+          status=$(echo "${response}" | tail -n1 | sed 's/HTTP_STATUS://')
+          if [ "${status}" != "200" ]; then
+            echo "Supabase ping failed with status ${status}"
+            exit 1
+          fi
+          echo "Supabase keep-alive ping succeeded"
