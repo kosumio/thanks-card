@@ -14,13 +14,20 @@ const s = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+interface Target {
+  id: string;
+  name: string;
+  location: string;
+}
+
 (async () => {
   const { data: emps } = await s.from("employees").select("id, name, location");
-  const target = (emps ?? []).find((e) => e.name === "中上征三");
-  if (!target) {
+  const found = (emps ?? []).find((e) => e.name === "中上征三");
+  if (!found) {
     console.error("中上征三 not found");
     return;
   }
+  const target: Target = found;
   console.log(`target: ${target.name} (${target.location})`);
 
   const { data: cats } = await s.from("categories").select("id, value, icon");
