@@ -65,10 +65,9 @@ export async function sendCardAction(
 ): Promise<{ error?: string }> {
   const toId = formData.get("toId") as string;
   const message = formData.get("message") as string;
-  const categoryIds = formData.getAll("categoryIds") as string[];
 
-  if (!toId || !message || categoryIds.length === 0) {
-    return { error: "宛先、メッセージ、カテゴリを入力してください" };
+  if (!toId || !message) {
+    return { error: "宛先とメッセージを入力してください" };
   }
 
   const supabase = await createClient();
@@ -78,33 +77,15 @@ export async function sendCardAction(
   } = await supabase.auth.getUser();
   if (!user) return { error: "ログインが必要です" };
 
-  // Get employee_id from auth user's app_metadata
   const employeeId = user.app_metadata?.employee_id;
   if (!employeeId) return { error: "社員情報が見つかりません" };
 
-  // Insert thanks card
-  const { data: card, error: cardError } = await supabase
+  const { error: cardError } = await supabase
     .from("thanks_cards")
-    .insert({ from_id: employeeId, to_id: toId, message })
-    .select("id")
-    .single();
+    .insert({ from_id: employeeId, to_id: toId, message });
 
-  if (cardError || !card) {
+  if (cardError) {
     return { error: "カードの送信に失敗しました" };
-  }
-
-  // Insert card categories
-  const cardCategories = categoryIds.map((categoryId) => ({
-    card_id: card.id,
-    category_id: categoryId,
-  }));
-
-  const { error: catError } = await supabase
-    .from("card_categories")
-    .insert(cardCategories);
-
-  if (catError) {
-    return { error: "カテゴリの保存に失敗しました" };
   }
 
   revalidatePath("/");
@@ -189,7 +170,7 @@ export async function deleteCardAction(
     return { error: "このカードを削除する権限がありません" };
   }
 
-  // Hard delete — card_categories / card_reactions / card_reads cascade via FK
+  // Hard delete — card_reactions / card_reads cascade via FK
   const { error: delErr } = await supabase
     .from("thanks_cards")
     .delete()

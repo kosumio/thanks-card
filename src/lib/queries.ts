@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
-import type { DbEmployee, DbCategory } from "@/lib/database.types";
-import type { Employee, CategoryInfo, ThanksCard } from "@/lib/types";
+import type { DbEmployee } from "@/lib/database.types";
+import type { Employee, ThanksCard } from "@/lib/types";
 
 // --- Mappers ---
 
@@ -15,24 +15,12 @@ export function toEmployee(db: DbEmployee): Employee {
   };
 }
 
-export function toCategoryInfo(db: DbCategory): CategoryInfo {
-  return {
-    id: db.id,
-    value: db.value,
-    displayOrder: db.display_order,
-    colorClass: db.color_class ?? "",
-    bgClass: db.bg_class ?? "",
-    icon: db.icon ?? "",
-  };
-}
-
 // --- Supabase nested select for cards ---
 
 const CARD_SELECT = `
   id, message, is_picked, created_at,
   from:employees!from_id(id, employee_number, name, name_kana, location, is_admin, is_active, created_at),
   to:employees!to_id(id, employee_number, name, name_kana, location, is_admin, is_active, created_at),
-  card_categories(categories(*)),
   card_reactions(user_id)
 `;
 
@@ -43,7 +31,6 @@ interface CardRow {
   created_at: string;
   from: DbEmployee;
   to: DbEmployee;
-  card_categories: { categories: DbCategory }[];
   card_reactions: { user_id: string }[];
 }
 
@@ -52,7 +39,6 @@ function toThanksCard(row: CardRow, currentUserId: string): ThanksCard {
     id: row.id,
     from: toEmployee(row.from),
     to: toEmployee(row.to),
-    categories: row.card_categories.map((cc) => toCategoryInfo(cc.categories)),
     message: row.message,
     createdAt: row.created_at,
     reactionCount: row.card_reactions.length,
@@ -88,18 +74,6 @@ export async function getEmployeeById(id: string): Promise<Employee | null> {
     throw error;
   }
   return toEmployee(data as DbEmployee);
-}
-
-export async function getActiveCategories(): Promise<CategoryInfo[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("categories")
-    .select("*")
-    .eq("is_active", true)
-    .order("display_order");
-
-  if (error) throw error;
-  return (data as DbCategory[]).map(toCategoryInfo);
 }
 
 export async function getAllCards(currentUserId: string): Promise<ThanksCard[]> {

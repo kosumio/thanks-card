@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import {
-  getAllCards,
-  getActiveEmployees,
-  getActiveCategories,
-} from "@/lib/queries";
+import { getAllCards, getActiveEmployees } from "@/lib/queries";
 import ArchiveClient from "./archive-client";
 
 export default async function ArchivePage() {
@@ -14,17 +10,15 @@ export default async function ArchivePage() {
 
   const currentUserId = user?.app_metadata?.employee_id ?? "";
 
-  const [cards, employees, categories] = await Promise.all([
+  const [cards, employees] = await Promise.all([
     getAllCards(currentUserId),
     getActiveEmployees(),
-    getActiveCategories(),
   ]);
 
   return (
     <ArchiveClient
       cards={cards}
       employees={employees}
-      categories={categories}
       currentUserId={currentUserId}
     />
   );

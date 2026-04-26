@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import {
-  getAllCards,
-  getActiveEmployees,
-  getActiveCategories,
-} from "@/lib/queries";
+import { getAllCards, getActiveEmployees } from "@/lib/queries";
 import AdminClient from "./admin-client";
 
 export default async function AdminPage() {
@@ -14,17 +10,10 @@ export default async function AdminPage() {
 
   const currentUserId = user?.app_metadata?.employee_id ?? "";
 
-  const [cards, employees, categories] = await Promise.all([
+  const [cards, employees] = await Promise.all([
     getAllCards(currentUserId),
     getActiveEmployees(),
-    getActiveCategories(),
   ]);
 
-  return (
-    <AdminClient
-      cards={cards}
-      employees={employees}
-      categories={categories}
-    />
-  );
+  return <AdminClient cards={cards} employees={employees} />;
 }

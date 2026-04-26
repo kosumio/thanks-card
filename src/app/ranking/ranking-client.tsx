@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Heart, Inbox, Send, Trophy, Award } from "lucide-react";
 import AuthGuard from "@/components/auth-guard";
-import type { ThanksCard, Employee, CategoryInfo } from "@/lib/types";
+import type { ThanksCard, Employee } from "@/lib/types";
 
 type RankingType = "received" | "sent" | "hearts" | "picked";
 
@@ -17,7 +17,6 @@ interface PersonRank {
 interface RankingClientProps {
   cards: ThanksCard[];
   employees: Employee[];
-  categories: CategoryInfo[];
   currentUserId: string;
 }
 
@@ -64,20 +63,15 @@ function buildPeriods(cards: ThanksCard[]): PeriodOption[] {
 export default function RankingClient({
   cards,
   employees,
-  categories,
   currentUserId,
 }: RankingClientProps) {
   const [tab, setTab] = useState<RankingType>("received");
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [periodKey, setPeriodKey] = useState<PeriodKey>("fy2025");
 
   const periods = useMemo(() => buildPeriods(cards), [cards]);
   const currentPeriod = periods.find((p) => p.key === periodKey) ?? periods[0];
 
-  function buildFullRanking(
-    type: RankingType,
-    catFilter?: string
-  ): PersonRank[] {
+  function buildFullRanking(type: RankingType): PersonRank[] {
     const counts: Record<string, number> = {};
     let filtered = cards;
     if (currentPeriod.start !== null) {
@@ -87,11 +81,6 @@ export default function RankingClient({
     if (currentPeriod.end !== null) {
       const e = currentPeriod.end;
       filtered = filtered.filter((c) => Date.parse(c.createdAt) < e);
-    }
-    if (catFilter) {
-      filtered = filtered.filter((c) =>
-        c.categories.some((cc) => cc.value === catFilter)
-      );
     }
 
     filtered.forEach((c) => {
@@ -122,9 +111,9 @@ export default function RankingClient({
   }
 
   const fullRanking = useMemo(
-    () => buildFullRanking(tab, categoryFilter ?? undefined),
+    () => buildFullRanking(tab),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tab, categoryFilter, cards, employees, periodKey]
+    [tab, cards, employees, periodKey]
   );
   const currentRanking = fullRanking.slice(0, 20);
 
@@ -158,10 +147,7 @@ export default function RankingClient({
   ];
 
   const currentTab = tabs.find((t) => t.key === tab)!;
-  const activeCat = categories.find((c) => c.value === categoryFilter);
-  const rankingLabel = activeCat
-    ? `${activeCat.icon} ${categoryFilter}`
-    : "総合";
+  const rankingLabel = "総合";
 
   return (
     <AuthGuard>
@@ -203,38 +189,6 @@ export default function RankingClient({
             {t.label}
           </button>
         ))}
-      </div>
-
-      {/* Category filter */}
-      <div className="flex flex-wrap gap-1.5 mb-4">
-        <button
-          onClick={() => setCategoryFilter(null)}
-          className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
-            categoryFilter === null
-              ? "bg-[var(--color-primary)] text-white shadow-sm"
-              : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
-          }`}
-        >
-          総合
-        </button>
-        {categories.map((cat) => {
-          const isActive = categoryFilter === cat.value;
-          return (
-            <button
-              key={cat.id}
-              onClick={() =>
-                setCategoryFilter(isActive ? null : cat.value)
-              }
-              className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
-                isActive
-                  ? `${cat.bgClass} ${cat.colorClass} ring-2 ring-current shadow-sm`
-                  : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)] hover:bg-[var(--color-warm-100)]"
-              }`}
-            >
-              {cat.icon} {cat.value}
-            </button>
-          );
-        })}
       </div>
 
       {/* My rank */}

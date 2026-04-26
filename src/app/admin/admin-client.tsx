@@ -13,24 +13,21 @@ import AuthGuard from "@/components/auth-guard";
 import CardItem from "@/components/card-item";
 import { togglePickedAction, deleteCardAction } from "@/lib/actions";
 import { useRouter } from "next/navigation";
-import type { ThanksCard, Employee, CategoryInfo } from "@/lib/types";
+import type { ThanksCard, Employee } from "@/lib/types";
 
 interface AdminClientProps {
   cards: ThanksCard[];
   employees: Employee[];
-  categories: CategoryInfo[];
 }
 
 export default function AdminClient({
   cards: initialCards,
   employees,
-  categories,
 }: AdminClientProps) {
   const router = useRouter();
   const [cards, setCards] = useState(initialCards);
   const [showAllCards, setShowAllCards] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchCategory, setSearchCategory] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
   const handleDelete = async (cardId: string) => {
@@ -53,13 +50,6 @@ export default function AdminClient({
     const totalEmployees = employees.length;
     const activeWriters = new Set(cards.map((c) => c.from.id)).size;
     const totalHearts = cards.reduce((sum, c) => sum + c.reactionCount, 0);
-
-    const categoryBreakdown = categories.map((cat) => ({
-      ...cat,
-      count: cards.filter((c) =>
-        c.categories.some((cc) => cc.value === cat.value)
-      ).length,
-    }));
 
     const locationBreakdown = locations.map((loc) => {
       const locEmployees = employees.filter((e) => e.location === loc);
@@ -101,20 +91,18 @@ export default function AdminClient({
       totalEmployees,
       activeWriters,
       totalHearts,
-      categoryBreakdown,
       locationBreakdown,
       crossLocationCards,
       pickedCards,
       isolatedEmployees,
     };
-  }, [cards, employees, categories, locations]);
+  }, [cards, employees, locations]);
 
   const handleTogglePicked = (cardId: string) => {
     const card = cards.find((c) => c.id === cardId);
     if (!card) return;
     const newPicked = !card.isPicked;
 
-    // Optimistic update
     setCards((prev) =>
       prev.map((c) =>
         c.id === cardId ? { ...c, isPicked: newPicked } : c
@@ -206,40 +194,6 @@ export default function AdminClient({
         </div>
       </div>
 
-      {/* Category breakdown */}
-      <div className="bg-white rounded-2xl p-4 border border-[var(--color-warm-100)] mb-5">
-        <h3 className="text-sm font-semibold text-[var(--color-warm-800)] mb-3">
-          カテゴリ別 分布
-        </h3>
-        <div className="space-y-2">
-          {stats.categoryBreakdown.map((cat) => (
-            <div key={cat.id} className="flex items-center gap-3">
-              <span
-                className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full ${cat.bgClass} ${cat.colorClass}`}
-              >
-                {cat.icon} {cat.value}
-              </span>
-              <div className="flex-1 h-2 bg-[var(--color-warm-100)] rounded-full overflow-hidden">
-                <div
-                  className={`h-full rounded-full ${cat.bgClass}`}
-                  style={{
-                    width: `${
-                      stats.totalCards > 0
-                        ? (cat.count / stats.totalCards) * 100
-                        : 0
-                    }%`,
-                    minWidth: cat.count > 0 ? "8px" : "0",
-                  }}
-                />
-              </div>
-              <span className="text-xs font-medium text-[var(--color-warm-600)] w-8 text-right">
-                {cat.count}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Isolated employees */}
       {stats.isolatedEmployees.length > 0 && (
         <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200 mb-5">
@@ -314,35 +268,6 @@ export default function AdminClient({
                   className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[var(--color-warm-200)] bg-white text-sm text-[var(--color-warm-800)] placeholder:text-[var(--color-warm-300)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-colors"
                 />
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  onClick={() => setSearchCategory(null)}
-                  className={`text-[10px] px-2.5 py-1 rounded-lg font-medium transition-all ${
-                    searchCategory === null
-                      ? "bg-[var(--color-primary)] text-white"
-                      : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]"
-                  }`}
-                >
-                  全カテゴリ
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() =>
-                      setSearchCategory(
-                        searchCategory === cat.value ? null : cat.value
-                      )
-                    }
-                    className={`text-[10px] px-2.5 py-1 rounded-lg font-medium transition-all ${
-                      searchCategory === cat.value
-                        ? `${cat.bgClass} ${cat.colorClass} ring-1 ring-current`
-                        : "bg-[var(--color-warm-50)] text-[var(--color-warm-500)] border border-[var(--color-warm-200)]"
-                    }`}
-                  >
-                    {cat.icon} {cat.value}
-                  </button>
-                ))}
-              </div>
             </div>
 
             <div className="space-y-3">
@@ -350,13 +275,6 @@ export default function AdminClient({
                 const q = searchQuery.trim().toLowerCase();
                 const filtered = cards
                   .filter((card) => {
-                    if (
-                      searchCategory &&
-                      !card.categories.some(
-                        (cc) => cc.value === searchCategory
-                      )
-                    )
-                      return false;
                     if (!q) return true;
                     return (
                       card.from.name.includes(q) ||

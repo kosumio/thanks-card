@@ -1,9 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import {
-  getActiveEmployees,
-  getActiveCategories,
-  getAllCards,
-} from "@/lib/queries";
+import { getActiveEmployees, getAllCards } from "@/lib/queries";
 import SendFormClient from "./send-form-client";
 
 export default async function HomePage() {
@@ -14,17 +10,10 @@ export default async function HomePage() {
 
   const currentUserId = user?.app_metadata?.employee_id ?? "";
 
-  const [employees, categories, cards] = await Promise.all([
+  const [employees, cards] = await Promise.all([
     getActiveEmployees(),
-    getActiveCategories(),
     getAllCards(currentUserId),
   ]);
 
-  return (
-    <SendFormClient
-      employees={employees}
-      categories={categories}
-      cards={cards}
-    />
-  );
+  return <SendFormClient employees={employees} cards={cards} />;
 }

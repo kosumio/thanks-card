@@ -17,18 +17,6 @@ create table employees (
 create index idx_employees_active on employees(is_active);
 create index idx_employees_location on employees(location);
 
--- カテゴリマスタ
-create table categories (
-  id uuid primary key default gen_random_uuid(),
-  value text unique not null,
-  display_order int not null,
-  color_class text,
-  bg_class text,
-  icon text,
-  is_active boolean not null default true,
-  created_at timestamptz not null default now()
-);
-
 -- カード本体
 create table thanks_cards (
   id uuid primary key default gen_random_uuid(),
@@ -43,14 +31,6 @@ create index idx_cards_from on thanks_cards(from_id);
 create index idx_cards_to on thanks_cards(to_id);
 create index idx_cards_created_at on thanks_cards(created_at desc);
 create index idx_cards_picked on thanks_cards(is_picked) where is_picked = true;
-
--- カード×カテゴリ（多対多）
-create table card_categories (
-  card_id uuid not null references thanks_cards(id) on delete cascade,
-  category_id uuid not null references categories(id),
-  primary key (card_id, category_id)
-);
-create index idx_card_categories_cat on card_categories(category_id);
 
 -- リアクション
 create table card_reactions (
