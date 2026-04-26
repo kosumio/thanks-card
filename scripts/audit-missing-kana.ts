@@ -63,14 +63,25 @@ const s = createClient(
   lines.push("3. HRBrain / LINEWORKS で拾えるものは事前に自動補完予定");
 
   const outDir = path.resolve("../../../clients/AWB");
-  if (!fs.existsSync(outDir)) {
-    console.warn(`[warn] output dir not found: ${outDir} -- writing to scripts/data/ instead`);
-    const fallback = path.resolve("scripts/data/2026-04-27_missing-kana.md");
-    fs.writeFileSync(fallback, lines.join("\n"));
-    console.log(`written: ${fallback}`);
-  } else {
-    const out = path.join(outDir, "2026-04-27_thanks-card-missing-kana.md");
-    fs.writeFileSync(out, lines.join("\n"));
-    console.log(`written: ${out}`);
+  const outBase = fs.existsSync(outDir) ? outDir : path.resolve("scripts/data");
+  if (!fs.existsSync(outBase)) fs.mkdirSync(outBase, { recursive: true });
+
+  // 1. Markdown report
+  const mdOut = path.join(outBase, "2026-04-27_thanks-card-missing-kana.md");
+  fs.writeFileSync(mdOut, lines.join("\n"));
+  console.log(`written: ${mdOut}`);
+
+  // 2. CSV template for import-name-kana.ts
+  // 列: employee_number, name(参照のみ), location(参照のみ), name_kana(記入欄)
+  // import スクリプトは employee_number と name_kana の2列のみ参照する。
+  const csvLines = ["employee_number,name,location,name_kana"];
+  for (const e of missing) {
+    const num = e.employee_number;
+    const name = (e.name || "").replace(/"/g, '""');
+    const loc = (e.location || "").replace(/"/g, '""');
+    csvLines.push(`${num},"${name}","${loc}",`);
   }
+  const csvOut = path.join(outBase, "2026-04-27_thanks-card-missing-kana.csv");
+  fs.writeFileSync(csvOut, csvLines.join("\n"));
+  console.log(`written: ${csvOut}`);
 })();
