@@ -96,7 +96,7 @@ export default function LoginPage({ employees }: LoginPageProps) {
         </div>
 
         <p className="text-center text-[10px] text-[var(--color-warm-400)] mt-6">
-          Powered by 天神経営
+          Provided by TENJIN KEIEI
         </p>
       </div>
     </div>
